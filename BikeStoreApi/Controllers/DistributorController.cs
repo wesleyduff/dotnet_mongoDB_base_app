@@ -7,6 +7,9 @@ using Domain;
 using Ninject.Modules;
 using System;
 using BikeStoreApi.Composers;
+using MongoDB.Bson;
+using Newtonsoft.Json;
+using System.Web.Http.Results;
 
 namespace BikeStoreApi.Controllers
 {
@@ -182,15 +185,74 @@ namespace BikeStoreApi.Controllers
         */
         [Route("api/Distributors/All")]
         [HttpGet]
-        public async Task<List<DistributorModels>> All()
+        public async Task<string> All()
         {
-            var model = await distributorsComposer.Compose();
+            var model = await distributorsComposer.GetDistributorsList();
             return model;
         }
 
-        public IEnumerable<string> Get()
+        public async Task<string> Create(Distributor postDistributor)
         {
-            return new string[] { "value1", "value2" };
+            var distributor = new Distributor()
+            {
+                Address = postDistributor.Address,
+                Contact = postDistributor.Contact,
+                Inventory = postDistributor.Inventory,
+                Name = postDistributor.Name
+            };
+
+            try
+            {
+                var model = await distributorsComposer.CreateDistributor(distributor);
+                return model.ToJson();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return JsonConvert.SerializeObject(new { Status = false } );
+            }
+            
+        }
+
+        public async Task<string> Get()
+        {
+            try
+            {
+                var model = await distributorsComposer.GetDistributorsList();
+                return model.ToJson();
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { Status = false });
+            }
+        }
+
+        public string Get(string id)
+        {
+            try
+            {
+                var model = distributorsComposer.GetDistributor(id);
+                return model.ToJson();
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { Status = false });
+            }
+        }
+
+        [Route("api/Distributors/AddInventory")]
+        [HttpPost]
+        public string AddInventory(string id, Bike bike)
+        {
+            try
+            {
+                var model = distributorsComposer.AddProductToInventory(id, bike);
+                return model.ToJson();
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { Status = false });
+            }
         }
 
      

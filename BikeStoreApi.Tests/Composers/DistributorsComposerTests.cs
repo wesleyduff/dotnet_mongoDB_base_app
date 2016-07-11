@@ -21,18 +21,8 @@ namespace BikeStoreApi.Composers.Tests
             _distributorsComposer = new DistributorsComposer(_distributorsMockService);
         }
 
-        [TestMethod()]
-        public async Task ComposerShouldNotBeNull()
-        {
-            var composer = await _distributorsComposer.Compose();
-            Assert.IsNotNull(composer);
-        }
+       
 
-        [TestMethod()]
-        public async Task ComposerShouldContainAtLeaseOneDistributor()
-        {
-            var composer = await _distributorsComposer.Compose();
-            Assert.IsTrue(composer.Count > 0);
-        }
+       
     }
 }

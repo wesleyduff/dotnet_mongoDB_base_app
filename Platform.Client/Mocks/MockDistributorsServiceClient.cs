@@ -5,41 +5,58 @@ using System;
 using MongoDB.Driver;
 using Platform.Client.Properties;
 using MongoDB.Bson;
+using Domain;
 
 namespace Platform.Client.Mocks
 {
-    public class MockDistributorsServiceClient : IDistributorsServiceClient
+    public class MockDistributorsServiceClient : BaseModel, IDistributorsMockServiceClient
     {
-        public IMongoDatabase Database;
-        public MockDistributorsServiceClient()
+        
+        public async Task GetDistributors()
         {
-            var client = new MongoClient(Settings.Default.mongoLocal);
-            Database = client.GetDatabase(Settings.Default.mongoLocalDb);
-        }
-        public async Task<DistributorsDataContract> GetDistributors()
-        {
-            var result = await Task.Run(() => Utils.ReadJsonFileAndDeserialize<DistributorsDataContract>("Distributors.json"));
-            return result;
+            var collection = Database.GetCollection<BsonDocument>("distributors");
+
+            await collection.Find(new BsonDocument()).ToListAsync();
         }
 
-        public async Task<long> GetNumberOfTestDocumentsInCollection()
+        public async Task<long> GetNumberOfDistributors()
         {
-
-            await Insert();
-
-            // Task<long> count = GetCollectionCount();
-            //  count.Wait();
             var collection = Database.GetCollection<BsonDocument>("bar");
-            await collection.CountAsync(new BsonDocument());
             return await collection.CountAsync(new BsonDocument());
         }
         
-        public async Task GetDistributor(string name)
+        public async Task<BsonDocument> CreateDistributor()
         {
-            var collection = Database.GetCollection<BsonDocument>("distributors");
-            var filter = Builders<BsonDocument>.Filter.Gte("Wes", 1);
+           var distributor = new Distributor
+           {
+               Name = "Austin Tri Cyclist",
+               Address = new Address()
+               {
+                   City = "Austin",
+                   Country = "US",
+                   PostalCode = "78550",
+                   State = "TX",
+                   StreetAddress = "123 Red Bud"
+               },
+               Contact = new Contact()
+                {
+                    EmailAddress = "test@test.com",
+                    FirstName = "Jane",
+                    FullName = "Jane Doe",
+                    IsPrimary = true,
+                    LastName = "Doe",
+                    PhoneNumber = "555-555-5555",
+                    SalesDepartment = "Merch"
+                }
+            };
 
-            await collection.Find(filter).FirstAsync();
+            BsonDocument doc = distributor.ToBsonDocument();
+
+            var collection = Database.GetCollection<BsonDocument>("distributors");
+
+            await collection.InsertOneAsync(doc);
+
+            return doc;
 
         }
 
@@ -56,5 +73,6 @@ namespace Platform.Client.Mocks
 
             await collection.InsertOneAsync(seventies);
         }
+        
     }
 }

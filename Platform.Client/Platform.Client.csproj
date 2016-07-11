@@ -56,8 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel.cs" />
     <Compile Include="DataContracts\Distributor\DistributorContract.cs" />
     <Compile Include="DataContracts\Distributor\DistributorsDataContract.cs" />
+    <Compile Include="Services\DistributorsServiceClient.cs" />
+    <Compile Include="Interfaces\IDistributorsMockServiceClient.cs" />
     <Compile Include="Interfaces\IDistributorsServiceClient.cs" />
     <Compile Include="Mocks\MockDistributorsServiceClient.cs" />
     <Compile Include="Mocks\Utils.cs" />
@@ -77,8 +80,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="MongoCollection\" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{6ad2f8f1-89fd-4841-acd5-287b49a9ad72}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
