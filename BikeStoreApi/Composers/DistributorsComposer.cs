@@ -22,6 +22,7 @@ namespace BikeStoreApi.Composers
         {
             model = new List<DistributorModels>();
             var distributorsContract = await _distributorsServiceClient.GetDistributors();
+            var countTest = await _distributorsServiceClient.GetNumberOfTestDocumentsInCollection();
 
             distributorsContract.Distributors.ForEach(delegate (DistributorContract distributor)
             {

@@ -6,5 +6,7 @@ namespace Platform.Client.Interfaces
     public interface IDistributorsServiceClient
     {
         Task<DistributorsDataContract> GetDistributors();
+        Task<long> GetNumberOfDistributors();
+        
     }
 }
