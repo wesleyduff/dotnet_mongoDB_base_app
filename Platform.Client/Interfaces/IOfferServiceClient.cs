@@ -13,5 +13,6 @@ namespace Platform.Client.Interfaces
         Task<Offers> GetOffer(string id);
         Task<Offers> CreateOffer(Offers offer);
         Task<bool> DeleteOffer(string id);
+        Task<bool> AddOfferToDistributor(string distributorId, string offerId);
     }
 }

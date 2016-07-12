@@ -12,6 +12,26 @@ namespace Platform.Client.Services
 {
     public class OfferServiceClient : BaseModel, IOfferServiceClient
     {
+        public async Task<bool> AddOfferToDistributor(string distributorId, string offerId)
+        {
+            var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
+            var update = Builders<Distributor>.Update.Push("Offers", offerId);
+
+
+            //add offer to distributor 
+            UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
+
+            if (result.IsModifiedCountAvailable)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public async Task<Offers> CreateOffer(Offers offer)
         {
             try
@@ -25,9 +45,29 @@ namespace Platform.Client.Services
             }
         }
 
-        public Task<bool> DeleteOffer(string id)
+        public async Task<bool> DeleteOffer(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Offers>.Filter.Eq("_id", ObjectId.Parse(id));
+
+                DeleteResult result = await OffersCollection.DeleteOneAsync(filter);
+
+                if (result.IsAcknowledged)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
+
+           
         }
 
         public Task<Offers> GetOffer(string id)
@@ -37,25 +77,35 @@ namespace Platform.Client.Services
 
         public List<Offers> GetOffers(string distributorId)
         {
-            var queryable = DistributorsCollection.AsQueryable();
-            var query = from p in queryable
-                        where p.Id.Equals(ObjectId.Parse(distributorId))
-                        select p;
+            Distributor distributor = GetDistributorById(distributorId);
 
             List<Offers> OffersList = new List<Offers>();
 
-            foreach(var offerId in query.FirstOrDefault().Offers)
+            foreach(var offerId in distributor.Offers)
             {
-                var queryableOffer = OffersCollection.AsQueryable();
-                var queryOffer = from o in queryableOffer
-                                 where o.Id.Equals(offerId)
-                                 select o;
-                OffersList.Add(queryOffer.First());
+                Offers offer = GetOfferById(offerId);
+                OffersList.Add(offer);
             }
 
             return OffersList;
+        }
 
-            
+        private Offers GetOfferById(string id)
+        {
+            var queryableOffer = OffersCollection.AsQueryable();
+            var queryOffer = from o in queryableOffer
+                             where o.Id.Equals(ObjectId.Parse(id))
+                             select o;
+            return queryOffer.First();
+        }
+
+        private Distributor GetDistributorById(string id)
+        {
+            var queryable = DistributorsCollection.AsQueryable();
+            var query = from p in queryable
+                        where p.Id.Equals(ObjectId.Parse(id))
+                        select p;
+            return query.First();
         }
     }
 }

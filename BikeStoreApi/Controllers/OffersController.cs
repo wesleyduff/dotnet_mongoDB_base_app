@@ -5,6 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BikeStoreApi.Composers;
+using Domain;
+using MongoDB.Bson;
+using System.Threading.Tasks;
 
 namespace BikeStoreApi.Controllers
 {
@@ -17,14 +20,27 @@ namespace BikeStoreApi.Controllers
             _offersComposer = offersComposer;
         }
 
-        /* 
-           GET api/distributor/GetDistributors
-       */
         [Route("api/Distributor/{id}/Offers")]
         [HttpGet]
         public string Ditributor(string id)
         {
             var model = _offersComposer.GetListOfOffersForDistributor(id);
+            return model;
+        }
+
+        /* 
+          GET api/distributor/GetDistributors
+      */
+        [HttpPost]
+        public string create (Offers offer)
+        {
+            var model = _offersComposer.CreateOffer(offer);
+            return model.ToJson();
+        }
+
+        public async Task<string> delete(string id)
+        {
+            var model = await _offersComposer.DeleteOffer(id);
             return model;
         }
     }
