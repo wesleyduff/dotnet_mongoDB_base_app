@@ -13,7 +13,6 @@ namespace BikeStoreApi.Composers
 {
     public class DistributorsComposer : IDistributorComposer
     {
-        private List<DistributorModels> model;
         private MockDistributorsServiceClient _distributorsMockService;
         private readonly IDistributorsServiceClient _distributorsServiceClient;
 
@@ -30,12 +29,20 @@ namespace BikeStoreApi.Composers
 
         public async Task<bool> CreateDistributor(Distributor distributor)
         {
-            bool val = await _distributorsServiceClient.CreateDistributor(distributor);
+            try
+            {
+                bool val = await _distributorsServiceClient.CreateDistributor(distributor);
 
-            return val;
+                return val;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
         }
 
-        public async Task<string> AddProductToInventory(string DistributorId, Bike bike)
+        public async Task<bool> AddProductToInventory(string DistributorId, Bike bike)
         {
             try
             {
@@ -68,6 +75,16 @@ namespace BikeStoreApi.Composers
             return List.ToJson();
         }
 
-
+        public async Task<bool> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice)
+        {
+            try
+            {
+                return await _distributorsServiceClient.AdjustPrice(distributorId, adjustPrice);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

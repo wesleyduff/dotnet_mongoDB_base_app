@@ -11,8 +11,9 @@ namespace Platform.Client.Interfaces
         Task<List<Distributor>> GetDistributors();
         Task<long> GetNumberOfDistributors();
         Task<bool> CreateDistributor(Distributor distributor);
-        Task<string> AddProductToInventory(string DistributorId, Bike bike);
+        Task<bool> AddProductToInventory(string distributorId, Bike bike);
         Distributor GetDistributor(string Id);
+        Task<bool> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice);
 
     }
 }

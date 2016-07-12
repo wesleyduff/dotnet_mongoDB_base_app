@@ -18,7 +18,6 @@ namespace BikeStoreApi.App_Start
     using BikeStoreApi.Composers;
     using WebApiContrib.IoC.Ninject;
     using System.Web.Http;
-    using Platform.Client;
     using Platform.Client.Services;
 
     public static class NinjectWebCommon 
@@ -33,6 +32,7 @@ namespace BikeStoreApi.App_Start
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
+            
         }
         
         /// <summary>

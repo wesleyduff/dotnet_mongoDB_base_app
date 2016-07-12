@@ -255,7 +255,23 @@ namespace BikeStoreApi.Controllers
             }
         }
 
-     
+        [Route("api/Bike/AdjustPrice")]
+        [HttpPost]
+        public string AdjustPrice(string id, Bike.AdjustPrice adjustprice)
+        {
+            try
+            {
+                var model = distributorsComposer.AdjustPrice(id, adjustprice);
+                model.ToJson();
+                return JsonConvert.SerializeObject(new { Status = true });
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { Status = false });
+            }
+        }
+
+
         #endregion
     }
 

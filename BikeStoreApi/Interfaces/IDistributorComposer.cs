@@ -12,6 +12,7 @@ namespace BikeStoreApi.Interfaces
         Task<string> GetDistributorsList();
 
         Distributor GetDistributor(string Id);
-        Task<string> AddProductToInventory(string DistributorId, Bike bike);
+        Task<bool> AddProductToInventory(string distributorId, Bike bike);
+        Task<bool> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice);
     }
 }

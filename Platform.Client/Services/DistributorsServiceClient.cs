@@ -13,21 +13,30 @@ namespace Platform.Client.Services
     public class DistributorsServiceClient : BaseModel, IDistributorsServiceClient
     {
 
-        public async Task<string> AddProductToInventory(string DistributorId, Bike bike)
+        public async Task<bool> AddProductToInventory(string distributorId, Bike bike)
         {
             var queryable = DistributorsCollection.AsQueryable();
             var inventoryQuery = from p in queryable
-                                 where p.Id.Equals(ObjectId.Parse(DistributorId))
+                                 where p.Id.Equals(ObjectId.Parse(distributorId))
                                  select new { p.Inventory };
 
             var inventoryList = inventoryQuery.First().Inventory;
             inventoryList.Add(bike);
 
-            var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(DistributorId));
-            var update = Builders<Distributor>.Update.Set("Inventory", inventoryList);
-            UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
+            return await this.UpdateInventoryList(distributorId, inventoryList);
+        }
 
-            return result.ToString();
+        public async Task<bool> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice)
+        {
+            List<Bike> inventory = ReturnInventoryForDistributor(distributorId);
+            //find the correct bike to adjust price
+            foreach (var product in inventory.Where(b => b.Id == adjustPrice.BikeId))
+            {
+                product.Cost = adjustPrice.NewPrice;
+            }
+
+            return await this.UpdateInventoryList(distributorId, inventory);
+
         }
 
         public async Task<bool> CreateDistributor(Distributor distributor)
@@ -61,6 +70,32 @@ namespace Platform.Client.Services
         public async Task<long> GetNumberOfDistributors()
         {
             return await DistributorsCollection.CountAsync(new BsonDocument());
+        }
+
+        private List<Bike> ReturnInventoryForDistributor(string distributorId)
+        {
+            var queryable = DistributorsCollection.AsQueryable();
+            var inventoryQuery = from p in queryable
+                                 where p.Id.Equals(ObjectId.Parse(distributorId))
+                                 select new { p.Inventory };
+            var inventoryList = inventoryQuery.First().Inventory;
+            return inventoryList;
+        }
+
+        private async Task<bool> UpdateInventoryList(string distributorId, List<Bike> inventory)
+        {
+            var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
+            var update = Builders<Distributor>.Update.Set("Inventory", inventory);
+            UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
+
+            if (result.IsModifiedCountAvailable)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
