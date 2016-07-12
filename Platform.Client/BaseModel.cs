@@ -19,5 +19,13 @@ namespace Platform.Client
                 return Database.GetCollection<Distributor>("distributors");
             }
         }
+
+        public IMongoCollection<Offers> OffersCollection
+        {
+            get
+            {
+                return Database.GetCollection<Offers>("offers");
+            }
+        }
     }
 }

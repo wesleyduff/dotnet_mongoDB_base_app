@@ -59,6 +59,11 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="DataContracts\Distributor\DistributorContract.cs" />
     <Compile Include="DataContracts\Distributor\DistributorsDataContract.cs" />
+    <Compile Include="DataContracts\Offers\DiscountContract.cs" />
+    <Compile Include="DataContracts\Offers\OffersContract.cs" />
+    <Compile Include="DataContracts\Offers\OffersDataContract.cs" />
+    <Compile Include="Interfaces\IOfferServiceClient.cs" />
+    <Compile Include="Mocks\MockOffersServiceClient.cs" />
     <Compile Include="Services\DistributorsServiceClient.cs" />
     <Compile Include="Interfaces\IDistributorsMockServiceClient.cs" />
     <Compile Include="Interfaces\IDistributorsServiceClient.cs" />
@@ -70,10 +75,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\OfferServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mocks\json\Distributors.json" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Mocks\json\offers.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

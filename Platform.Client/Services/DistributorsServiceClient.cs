@@ -12,6 +12,10 @@ namespace Platform.Client.Services
 {
     public class DistributorsServiceClient : BaseModel, IDistributorsServiceClient
     {
+        public Task<string> AddOfferToDistributer(string offerId)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> AddProductToInventory(string distributorId, Bike bike)
         {

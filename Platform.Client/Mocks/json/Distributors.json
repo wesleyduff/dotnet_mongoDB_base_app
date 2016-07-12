@@ -1,13 +1,71 @@
 ﻿{
-  "distributors": [
-    {
-      "name": "Bucks Bikes"
+    "id" : "5784570078198e29603fd9ba",
+    "Name" : "sample string 2",
+    "Address" : {
+        "StreetAddress" : "sample string 1",
+        "StreetAddress2" : "sample string 2",
+        "City" : "sample string 3",
+        "State" : "sample string 4",
+        "Country" : "sample string 5",
+        "PostalCode" : "sample string 6"
     },
-    {
-      "name": "Austin Multi Sport"
+    "Contact" : {
+        "FirstName" : "sample string 1",
+        "LastName" : "sample string 2",
+        "EmailAddress" : "sample string 3",
+        "PhoneNumber" : "sample string 4",
+        "SalesDepartment" : "sample string 5",
+        "IsPrimary" : true,
+        "FullName" : "sample string 7"
     },
-    {
-      "name" :  "Austin Tri Cyclist"
-    }
-  ]
+    "Inventory" : [ 
+        {
+            "id" : "20160711212642680",
+            "Brand" : {
+                "Name" : "sample string 1"
+            },
+            "Model" : {
+                "Year" : "2016-07-11T20:06:19.5692939-05:00",
+                "Name" : "sample string 2",
+                "Features" : [ 
+                    {
+                        "Title" : "sample string 1",
+                        "Description" : "sample string 2"
+                    }, 
+                    {
+                        "Title" : "sample string 1",
+                        "Description" : "sample string 2"
+                    }
+                ],
+                "Description" : "sample string 3"
+            },
+            "Cost" : {
+                "Value" : 1.0
+            }
+        }, 
+        {
+            "id" : "20160711212642681",
+            "Brand" : {
+                "Name" : "sample string 1"
+            },
+            "Model" : {
+                "Year" : "2016-07-11T20:06:09.5692939-05:00",
+                "Name" : "sample string 2",
+                "Features" : [ 
+                    {
+                        "Title" : "sample string 1",
+                        "Description" : "sample string 2"
+                    }, 
+                    {
+                        "Title" : "sample string 1",
+                        "Description" : "sample string 2"
+                    }
+                ],
+                "Description" : "sample string 3"
+            },
+            "Cost" : {
+                "Value" : 4521.3
+            }
+        }
+    ]
 }

@@ -76,8 +76,15 @@ namespace BikeStoreApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IDistributorsMockServiceClient>().To<MockDistributorsServiceClient>();
+            kernel.Bind<IOfferMockServiceClient>().To<MockOffersServiceClient>();
+
             kernel.Bind<IDistributorsServiceClient>().To<DistributorsServiceClient>();
+            kernel.Bind<IOfferServiceClient>().To<OfferServiceClient>();
+
             kernel.Bind<IDistributorComposer>().To<DistributorsComposer>();
+            kernel.Bind<IOffersComposer>().To<OffersComposer>();
+
+
         }        
     }
 }

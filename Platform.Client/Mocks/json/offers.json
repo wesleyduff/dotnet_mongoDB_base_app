@@ -1,0 +1,22 @@
+﻿{
+  "offers": [
+    {
+      "id": "1",
+      "title": "Holiday Sale",
+      "discount": {
+        "title": "First Test Discount",
+        "code": "000",
+        "percentage": 0.50
+      }
+    },
+    {
+      "id": "2",
+      "title": "October Sale",
+      "discount": {
+        "title": "Second Test Discount",
+        "code": "001",
+        "percentage": 100
+      }
+    }
+  ]
+}
