@@ -10,9 +10,11 @@ namespace Platform.Client.Interfaces
     public interface IOfferServiceClient
     {
         List<Offers> GetOffers(string distributorId);
-        Task<Offers> GetOffer(string id);
-        Task<Offers> CreateOffer(Offers offer);
+        string GetOffer(string offerId);
+        Task<string> CreateOffer(Offers offer);
         Task<bool> DeleteOffer(string id);
-        Task<bool> AddOfferToDistributor(string distributorId, string offerId);
+        Task<string> AddOfferToDistributor(string distributorId, string offerId);
+        Task<string> AddDiscountToOffer(string offerId, string discountId);
+        Task<string> RemoveDiscountFromOffer(string offerId, string discountId);
     }
 }

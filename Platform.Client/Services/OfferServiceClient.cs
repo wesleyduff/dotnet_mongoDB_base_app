@@ -7,41 +7,80 @@ using System.Threading.Tasks;
 using Domain;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace Platform.Client.Services
 {
     public class OfferServiceClient : BaseModel, IOfferServiceClient
     {
-        public async Task<bool> AddOfferToDistributor(string distributorId, string offerId)
+        public async Task<string> AddOfferToDistributor(string distributorId, string offerId)
         {
-            var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
-            var update = Builders<Distributor>.Update.Push("Offers", offerId);
-
-
-            //add offer to distributor 
-            UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
-
-            if (result.IsModifiedCountAvailable)
+            try
             {
-                return true;
+                var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
+                var update = Builders<Distributor>.Update.Push("Offers", offerId);
+
+
+                //add offer to distributor 
+                UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
+
+                if (result.IsModifiedCountAvailable)
+                {
+                    return JsonConvert.SerializeObject(
+                           new
+                           {
+                               status = "success",
+                               result = true
+                           }
+                       );
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(
+                            new
+                            {
+                                status = "fail",
+                                result = false,
+                                message = "Offer could not be added to Distributor"
+                            }
+                        );
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                return JsonConvert.SerializeObject(
+                            new
+                            {
+                                status = "fail",
+                                result = false,
+                                message = "Execption : " + ex.Message
+                            }
+                        );
             }
 
         }
 
-        public async Task<Offers> CreateOffer(Offers offer)
+        public async Task<string> CreateOffer(Offers offer)
         {
             try
             {
                 await OffersCollection.InsertOneAsync(offer);
-                return offer;
+                return JsonConvert.SerializeObject(
+                    new
+                    {
+                        status = "success",
+                        result = true
+                    }
+               );
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex.InnerException);
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "Exception Thrown",
+                    result = false,
+                    message = ex.Message
+                });
             }
         }
 
@@ -70,9 +109,23 @@ namespace Platform.Client.Services
            
         }
 
-        public Task<Offers> GetOffer(string id)
+        public string GetOffer(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+               return GetOfferById(id).ToJson();
+
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "Exception Thrown",
+                    result = false,
+                    message = ex.Message
+                });
+            }
+
         }
 
         public List<Offers> GetOffers(string distributorId)
@@ -106,6 +159,126 @@ namespace Platform.Client.Services
                         where p.Id.Equals(ObjectId.Parse(id))
                         select p;
             return query.First();
+        }
+
+        public async Task<string> AddDiscountToOffer(string offerId, string discountId)
+        {
+            try
+            {
+                //get discount
+                var discountQueryable = DiscountCollection.AsQueryable();
+                var discountQuery = from d in discountQueryable
+                                    where d.Id.Equals(ObjectId.Parse(discountId))
+                                    select d;
+                Discount discount = discountQuery.First();
+
+                //get Offer
+                Offers offer = GetOfferById(offerId);
+                List<Discount> discounts = offer.Discounts;
+                discounts.Add(discount);
+
+                var filter = Builders<Offers>.Filter.Eq("_id", ObjectId.Parse(offerId));
+                var update = Builders<Offers>.Update.Set("Discounts", discounts);
+                UpdateResult result = await OffersCollection.UpdateOneAsync(filter, update);
+
+                if (result.IsModifiedCountAvailable)
+                {
+                    return JsonConvert.SerializeObject(
+                        new
+                        {
+                            status = "success",
+                            result = true
+                        }
+                    );
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(
+                        new
+                        {
+                            status = "fail",
+                            result = false
+                        }
+                    );
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "Exception Thrown",
+                    result = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        public async Task<string> RemoveDiscountFromOffer(string offerId, string discountId)
+        {
+            try
+            {
+                //get discount
+                var discountQueryable = DiscountCollection.AsQueryable();
+                var discountQuery = from d in discountQueryable
+                                    where d.Id.Equals(ObjectId.Parse(discountId))
+                                    select d;
+                Discount discount = discountQuery.First();
+
+                //get Offer
+                Offers offer = GetOfferById(offerId);
+                List<Discount> discounts = offer.Discounts;
+                if (discounts.Contains(discount))
+                {
+                    discounts.Remove(discount);
+
+                    var filter = Builders<Offers>.Filter.Eq("_id", ObjectId.Parse(offerId));
+                    var update = Builders<Offers>.Update.Set("Discounts", discounts);
+                    UpdateResult result = await OffersCollection.UpdateOneAsync(filter, update);
+
+                    if (result.IsModifiedCountAvailable)
+                    {
+                        return JsonConvert.SerializeObject(
+                            new
+                            {
+                                status = "success",
+                                result = true
+                            }
+                        );
+                    }
+                    else
+                    {
+                        return JsonConvert.SerializeObject(
+                            new
+                            {
+                                status = "fail",
+                                result = false
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(
+                            new
+                            {
+                                status = "fail",
+                                result = false,
+                                message = "Discount does not exist in Offer"
+                            }
+                        );
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "Exception Thrown",
+                    result = false,
+                    message = ex.Message
+                });
+            }
         }
     }
 }

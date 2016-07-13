@@ -21,12 +21,17 @@ namespace BikeStoreApi.Composers
             _offerServiceClient = offerServiceClient;
         }
 
-        public async Task<bool> AddOfferToDistributor(string distributorId, string offerId)
+        public Task<string> AddDiscountToOffer(string offerId, string discountId)
+        {
+            return _offerServiceClient.AddDiscountToOffer(offerId, discountId);
+        }
+
+        public async Task<string> AddOfferToDistributor(string distributorId, string offerId)
         {
             return await _offerServiceClient.AddOfferToDistributor(distributorId, offerId);
         }
 
-        public async Task<Offers> CreateOffer(Offers offer)
+        public async Task<string> CreateOffer(Offers offer)
         {
             return await _offerServiceClient.CreateOffer(offer);
         }
@@ -58,6 +63,19 @@ namespace BikeStoreApi.Composers
             return List.ToJson();
         }
 
+        public string GetOffer(string offerId)
+        {
+            return _offerServiceClient.GetOffer(offerId);
+        }
 
+        public List<Offers> GetOffers(string distributorId)
+        {
+            return _offerServiceClient.GetOffers(distributorId);
+        }
+
+        public Task<string> RemoveDiscountFromOffer(string offerId, string discountId)
+        {
+            return _offerServiceClient.RemoveDiscountFromOffer(offerId, discountId);
+        }
     }
 }

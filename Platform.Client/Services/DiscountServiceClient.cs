@@ -92,7 +92,8 @@ namespace Platform.Client.Services
 
         public string GetDiscounts()
         {
-            return DiscountCollection.Find(new BsonDocument()).ToJson();
+            List<Discount> collection = DiscountCollection.Find(new BsonDocument()).ToList();
+            return collection.ToJson();
         }
     }
 }
