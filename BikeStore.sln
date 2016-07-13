@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.Client", "Platform.Client\Platform.Client.csproj", "{70558330-8319-431F-997C-5D8C0F716E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributorsAdminPortal", "DistributorsAdminPortal\DistributorsAdminPortal.csproj", "{0BDB8B73-DD34-4B3B-9F87-942B8EE88CC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular.BikeStore.Web", "Angular.BikeStore.Web\Angular.BikeStore.Web.csproj", "{B75750A4-BA0C-4602-97BD-C0AA9BB5DBAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{70558330-8319-431F-997C-5D8C0F716E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70558330-8319-431F-997C-5D8C0F716E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70558330-8319-431F-997C-5D8C0F716E91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BDB8B73-DD34-4B3B-9F87-942B8EE88CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BDB8B73-DD34-4B3B-9F87-942B8EE88CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BDB8B73-DD34-4B3B-9F87-942B8EE88CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BDB8B73-DD34-4B3B-9F87-942B8EE88CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75750A4-BA0C-4602-97BD-C0AA9BB5DBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75750A4-BA0C-4602-97BD-C0AA9BB5DBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75750A4-BA0C-4602-97BD-C0AA9BB5DBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75750A4-BA0C-4602-97BD-C0AA9BB5DBAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

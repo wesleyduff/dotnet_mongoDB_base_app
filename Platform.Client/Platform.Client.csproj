@@ -64,6 +64,7 @@
     <Compile Include="DataContracts\Offers\OffersDataContract.cs" />
     <Compile Include="Interfaces\IOfferServiceClient.cs" />
     <Compile Include="Mocks\MockOffersServiceClient.cs" />
+    <Compile Include="Services\DiscountServiceClient.cs" />
     <Compile Include="Services\DistributorsServiceClient.cs" />
     <Compile Include="Interfaces\IDistributorsMockServiceClient.cs" />
     <Compile Include="Interfaces\IDistributorsServiceClient.cs" />
@@ -75,6 +76,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDiscountServiceClient.cs" />
     <Compile Include="Services\OfferServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using BikeStoreApi.Composers;
 using Domain;
 using MongoDB.Bson;
 using System.Threading.Tasks;
+using BikeStoreApi.Interfaces;
 
 namespace BikeStoreApi.Controllers
 {

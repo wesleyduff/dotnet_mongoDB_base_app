@@ -17,8 +17,6 @@ namespace BikeStoreApi.Composers.Tests
         public void Initialize()
         {
             _distributorsMockService = new MockDistributorsServiceClient();
-
-            _distributorsComposer = new DistributorsComposer(_distributorsMockService);
         }
 
        

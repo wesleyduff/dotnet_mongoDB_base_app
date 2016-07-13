@@ -242,7 +242,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Composers\DiscountComposer.cs" />
     <Compile Include="Composers\DistributorsComposer.cs" />
+    <Compile Include="Controllers\DiscountsController.cs" />
+    <Compile Include="Interfaces\IDiscountComposer.cs" />
     <Compile Include="Composers\OffersComposer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
@@ -253,6 +256,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDistributorComposer.cs" />
+    <Compile Include="Interfaces\IOffersComposer.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModels.cs" />

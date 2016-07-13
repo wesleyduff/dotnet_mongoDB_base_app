@@ -13,20 +13,13 @@ namespace BikeStoreApi.Composers
 {
     public class DistributorsComposer : IDistributorComposer
     {
-        private MockDistributorsServiceClient _distributorsMockService;
         private readonly IDistributorsServiceClient _distributorsServiceClient;
-
-        public DistributorsComposer(MockDistributorsServiceClient _distributorsMockService)
-        {
-            this._distributorsMockService = _distributorsMockService;
-        }
 
         public DistributorsComposer(IDistributorsServiceClient distributorsServiceClient)
         {
             _distributorsServiceClient = distributorsServiceClient;
         }
-
-
+        
         public async Task<bool> CreateDistributor(Distributor distributor)
         {
             try
