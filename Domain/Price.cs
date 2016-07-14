@@ -10,7 +10,6 @@ namespace Domain
 {
     public class Price
     {
-        [BsonRepresentation(BsonType.Double)]
-        public decimal Value { get; set; }
+        public double Value { get; set; }
     }
 }

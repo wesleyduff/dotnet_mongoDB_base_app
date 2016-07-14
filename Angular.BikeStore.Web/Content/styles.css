@@ -110,3 +110,45 @@ textarea {
 .modal-body .thumbnail {
     padding:12px;
 }
+
+.modal-body .badge {
+    position: absolute;
+    top: 10%;
+    left: 6%;
+    width: 75px;
+    height: 75px;
+    border-radius: 35px;
+    font-size: 3em;
+    padding: 14px;
+    background-color: #6d55b9;
+}
+
+    .modal-body .badge div {
+        margin: 0 auto;
+    }
+
+    .modal-body .badge span {
+        font-size: .3em;
+        position: relative;
+        top: -65px;
+    }
+
+    .modal-body .price {
+        font-size: 2.7em;
+        font-weight: bold;
+        position: absolute;
+        top: 16px;
+        right: 37px;
+        color: #6d55b9;
+        width: 250px;
+        text-align: right;
+    }
+
+    .modal-body .price span {
+        font-size: .7em;
+        font-weight:normal;
+    }
+
+    .modal-body .price button {
+        margin-top: -10px;
+    }

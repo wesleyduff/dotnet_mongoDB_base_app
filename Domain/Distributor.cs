@@ -15,6 +15,7 @@ namespace Domain
         public List<Line> Inventory { get; set; }
         //List of offers by ID
         public List<Offers> Offers { get; set; }
+       
         public List<ReceiptType> ReceiptTpesOffered { get; set; }
     }
 

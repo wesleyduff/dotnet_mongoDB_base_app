@@ -5,7 +5,7 @@ namespace Domain
 {
     public class BikeModel
     {
-        public DateTime Year { get; set; }
+        public string Year { get; set; }
         public string Name { get; set; }
         public  List<Feature> Features { get; set; }
         public string Description { get; set; }

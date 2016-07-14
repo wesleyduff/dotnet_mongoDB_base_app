@@ -1,10 +1,12 @@
 ﻿using Domain;
+using Newtonsoft.Json.Linq;
 using Platform.Client.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BikeStoreApi.Controllers
@@ -17,12 +19,12 @@ namespace BikeStoreApi.Controllers
             _lineServiceClient = lineServiceClient;
         }
 
-
+        //todo:: update price for bike - failing on post
         [Route("api/Invenotry/AdjustPrice")]
         [HttpPost]
-        public IHttpActionResult AdjustPrice(string id, Bike.AdjustPrice adjustprice)
+        public async Task<JObject> AdjustPrice(string distributorId, Bike.AdjustPrice adjustprice)
         {
-            return Ok(_lineServiceClient.AdjustPrice(id, adjustprice));
+            return await _lineServiceClient.AdjustPrice(distributorId, adjustprice);
         }
 
         [Route("api/Inventory/NewLine")]

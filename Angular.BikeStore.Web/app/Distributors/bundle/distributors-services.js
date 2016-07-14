@@ -13,11 +13,25 @@
                  getDistributor: {
                      method: 'GET',
                      distributorId: '@distributorId'
+                 },
+                 adjustPrice: {
+                     method: 'POST',
+                     url : 'api/Invenotry/AdjustPrice'
                  }
              }
          );
 
         return {
+            //todo:// Adjust Price failing on post
+            adjustPrice: function(postData){
+                var deferred = $q.defer();
+                resource.adjustPrice(postData, function (data) {
+                    data.result = offer;
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
             get: function () {
                 var deferred = $q.defer();
                 resource.get({}, function (data) {

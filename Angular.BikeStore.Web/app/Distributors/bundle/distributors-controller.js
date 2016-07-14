@@ -8,7 +8,7 @@
         $scope.title = "Distributors";
         $scope.distributors = [];
         $scope.selectedDistributor = {};
-
+        $scope.showPriceEdit = false;
         //Initialize
         (function () {
             $distributorsFactory.get().then(function (response) {
@@ -24,7 +24,26 @@
 
 
         $scope.GetDistributor = function (distributorId) {
+           
             $distributorsFactory.getDistributor(distributorId).then(function (response) {
+                if (response.status === "success") {
+                    $scope.distributorsModalData = response.result;
+                }
+            });
+        }
+
+        $scope.UpdatePrice = function (distributorId, bikeId, newPrice) {
+            var adjustprice = {
+                BikeId: bikeId,
+                Price: {
+                    Value: newPrice
+                }
+            };
+            var postData = {
+                distributorId: distributorId,
+                adjustprice: adjustprice
+            };
+            $distributorsFactory.adjustPrice(postData).then(function (response) {
                 if (response.status === "success") {
                     $scope.distributorsModalData = response.result;
                 }
