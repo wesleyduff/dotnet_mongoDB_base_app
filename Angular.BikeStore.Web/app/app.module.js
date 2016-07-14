@@ -2,8 +2,19 @@
 
     'use strict';
 
-    angular.module('app', ['ui.router', 'oc.lazyLoad'])
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+    angular.module('app', ['ui.router', 'oc.lazyLoad', 'ngResource'])
+    .constant('APPSETTINGS', {
+        APISERVERPATH: 'http://localhost:26639'
+    })
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
+
+        //Setting up for CORS
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        $httpProvider.defaults.headers.common["Accept"] = "application/json";
+        $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/Home");
 
@@ -33,7 +44,45 @@
             },
             resolve: {
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load('./app/Offers/bundle/offers-controller.js')
+                    return $ocLazyLoad.load([
+                        './app/Offers/bundle/offers-controller.js',
+                        './app/Offers/bundle/offers-services.js',
+                        './app/Discounts/bundle/discounts-services.js'
+                    ])
+                }]
+            }
+        })
+        .state('discounts', {
+            url: "/Discounts",
+            views: {
+                "lazyLoadView": {
+                    controller: 'DiscountsCtrl',
+                    templateUrl: "./app/Discounts/Views/index.html"
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        './app/Discounts/bundle/discounts-controller.js',
+                        './app/Discounts/bundle/discounts-services.js'
+                    ])
+                }]
+            }
+         })
+        .state('distributors', {
+            url: "/Distributors",
+            views: {
+                "lazyLoadView": {
+                    controller: 'DistributorsCtrl',
+                    templateUrl: "./app/Distributors/Views/index.html"
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        './app/Distributors/bundle/distributors-controller.js',
+                        './app/Distributors/bundle/distributors-services.js'
+                    ])
                 }]
             }
         })

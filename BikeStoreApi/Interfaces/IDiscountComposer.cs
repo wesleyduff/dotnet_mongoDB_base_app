@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace BikeStoreApi.Interfaces
@@ -8,7 +9,7 @@ namespace BikeStoreApi.Interfaces
 
         Task<string> CreateDiscount(Discount discount);
         string GetDiscount(string id);
-        string GetDiscounts();
+        JObject GetDiscounts();
         Task<string> DeleteDiscount(string id);
     }
 }

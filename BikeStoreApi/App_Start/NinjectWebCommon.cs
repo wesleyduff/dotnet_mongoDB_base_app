@@ -81,10 +81,7 @@ namespace BikeStoreApi.App_Start
             kernel.Bind<IDistributorsServiceClient>().To<DistributorsServiceClient>();
             kernel.Bind<IOfferServiceClient>().To<OfferServiceClient>();
             kernel.Bind<IDiscountServiceClient>().To<DiscountServiceClient>();
-
-            kernel.Bind<IDistributorComposer>().To<DistributorsComposer>();
-            kernel.Bind<IOffersComposer>().To<OffersComposer>();
-            kernel.Bind<IDiscountComposer>().To<DiscountComposer>();
+            kernel.Bind<ILineServiceClient>().To<LineServiceClient>();
 
 
         }        

@@ -1,5 +1,9 @@
 ﻿using BikeStoreApi.Interfaces;
+using BikeStoreApi.Properties;
 using Domain;
+using MongoDB.Bson;
+using Newtonsoft.Json.Linq;
+using Platform.Client.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,36 +11,38 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace BikeStoreApi.Controllers
 {
     public class DiscountsController : ApiController
     {
-        private readonly IDiscountComposer discountComposer;
+        private readonly IDiscountServiceClient _discountServiceClient;
 
-        public DiscountsController(IDiscountComposer discountComposer)
+        public DiscountsController(IDiscountServiceClient discountServiceClient)
         {
-            this.discountComposer = discountComposer;
+            _discountServiceClient = discountServiceClient;
         }
 
-        public string Get()
+        public IHttpActionResult Get()
         {
-            return discountComposer.GetDiscounts();
+            return Ok(_discountServiceClient.GetDiscounts());
         }
 
-        public string Get(string id)
+        public IHttpActionResult Get(string id)
         {
-            return discountComposer.GetDiscount(id);
+            return Ok(_discountServiceClient.GetDiscount(id));
         }
 
-        public Task<string> Create(Discount discount)
+        public async Task<JObject> Create(Discount discount)
         {
-            return discountComposer.CreateDiscount(discount);
+            discount.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
+            return await _discountServiceClient.CreateDiscount(discount);
         }
 
-        public Task<string> Delete(string id)
+        public async Task<JObject> Delete(string id)
         {
-            return discountComposer.DeleteDiscount(id);
+            return await _discountServiceClient.DeleteDiscount(id);
 
         }
     }

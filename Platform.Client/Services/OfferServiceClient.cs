@@ -8,17 +8,18 @@ using Domain;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Platform.Client.Services
 {
     public class OfferServiceClient : BaseModel, IOfferServiceClient
     {
-        public async Task<string> AddOfferToDistributor(string distributorId, string offerId)
+        public async Task<JObject> AddOfferToDistributor(string distributorId, Offers offer)
         {
             try
             {
                 var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
-                var update = Builders<Distributor>.Update.Push("Offers", offerId);
+                var update = Builders<Distributor>.Update.Push("Offers", offer);
 
 
                 //add offer to distributor 
@@ -26,65 +27,74 @@ namespace Platform.Client.Services
 
                 if (result.IsModifiedCountAvailable)
                 {
-                    return JsonConvert.SerializeObject(
+                    return
+                       JObject.FromObject(
                            new
                            {
                                status = "success",
-                               result = true
+                               result = true,
+                               message = "Offer added to distributor"
                            }
                        );
                 }
                 else
                 {
-                    return JsonConvert.SerializeObject(
+                    return
+                        JObject.FromObject(
                             new
                             {
-                                status = "fail",
+                                status = "false",
                                 result = false,
-                                message = "Offer could not be added to Distributor"
+                                message = "Offer could not be added to distributor"
                             }
                         );
                 }
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(
-                            new
-                            {
-                                status = "fail",
-                                result = false,
-                                message = "Execption : " + ex.Message
-                            }
-                        );
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
             }
 
         }
 
-        public async Task<string> CreateOffer(Offers offer)
+        public async Task<JObject> CreateOffer(Offers offer)
         {
             try
             {
                 await OffersCollection.InsertOneAsync(offer);
-                return JsonConvert.SerializeObject(
-                    new
-                    {
-                        status = "success",
-                        result = true
-                    }
-               );
+                return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "success",
+                                result = offer,
+                                message = "Offer was created"
+                            }
+                        );
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
             }
         }
 
-        public async Task<bool> DeleteOffer(string id)
+        public async Task<JObject> DeleteOffer(string id)
         {
             try
             {
@@ -94,83 +104,144 @@ namespace Platform.Client.Services
 
                 if (result.IsAcknowledged)
                 {
-                    return true;
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "success",
+                                result = true,
+                                message = "Offer was deleted"
+                            }
+                        );
                 }
                 else
                 {
-                    return false;
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "false",
+                                result = false,
+                                message = "Offer could not be deleted"
+                            }
+                        );
                 }
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message, ex.InnerException);
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
             }
 
            
         }
 
-        public string GetOffer(string id)
+        public JObject GetOffer(string id)
         {
             try
             {
-               return GetOfferById(id).ToJson();
+                var offer = GetOfferById(id);
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "success",
+                       result = offer
+                   }
+               );
 
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
             }
 
         }
-
-        public List<Offers> GetOffers(string distributorId)
+        public JObject GetOffers()
         {
-            Distributor distributor = GetDistributorById(distributorId);
-
-            List<Offers> OffersList = new List<Offers>();
-
-            foreach(var offerId in distributor.Offers)
+            List<Offers> collection = OffersCollection.Find(new BsonDocument()).ToList();
+            try
             {
-                Offers offer = GetOfferById(offerId);
-                OffersList.Add(offer);
+                JObject returnJson = JObject.FromObject(
+                        new
+                        {
+                            status = "success",
+                            result = collection
+                        }
+                    );
+                return returnJson;
+            }
+            catch(Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
             }
 
-            return OffersList;
         }
-
-        private Offers GetOfferById(string id)
-        {
-            var queryableOffer = OffersCollection.AsQueryable();
-            var queryOffer = from o in queryableOffer
-                             where o.Id.Equals(ObjectId.Parse(id))
-                             select o;
-            return queryOffer.First();
-        }
-
-        private Distributor GetDistributorById(string id)
-        {
-            var queryable = DistributorsCollection.AsQueryable();
-            var query = from p in queryable
-                        where p.Id.Equals(ObjectId.Parse(id))
-                        select p;
-            return query.First();
-        }
-
-        public async Task<string> AddDiscountToOffer(string offerId, string discountId)
+        public JObject GetOffersForDistributor(string distributorId)
         {
             try
             {
-                //get discount
-                var discountQueryable = DiscountCollection.AsQueryable();
-                var discountQuery = from d in discountQueryable
-                                    where d.Id.Equals(ObjectId.Parse(discountId))
-                                    select d;
-                Discount discount = discountQuery.First();
+                Distributor distributor = GetDistributorById(distributorId);
+
+                List<Offers> OffersList = new List<Offers>();
+
+                foreach (var offer in distributor.Offers)
+                {
+                    Offers selectedoffer = GetOfferById(offer.Id);
+                    OffersList.Add(selectedoffer);
+                }
+
+                return
+                       JObject.FromObject(
+                       new
+                       {
+                           status = "success",
+                           result = OffersList
+                       }
+                   );
+            }
+            catch (Exception ex)
+            {
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
+            }
+          
+        }
+
+        public async Task<JObject> AddDiscountToOffer(string offerId, Discount discount)
+        {
+            try
+            {
 
                 //get Offer
                 Offers offer = GetOfferById(offerId);
@@ -183,38 +254,45 @@ namespace Platform.Client.Services
 
                 if (result.IsModifiedCountAvailable)
                 {
-                    return JsonConvert.SerializeObject(
-                        new
-                        {
-                            status = "success",
-                            result = true
-                        }
-                    );
+                    return
+                       JObject.FromObject(
+                           new
+                           {
+                               status = "success",
+                               result = true,
+                               message = "Added Discount to Offer"
+                           }
+                       );
                 }
                 else
                 {
-                    return JsonConvert.SerializeObject(
-                        new
-                        {
-                            status = "fail",
-                            result = false
-                        }
-                    );
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "false",
+                                result = false,
+                                message = "Could not add Discount to Offer"
+                            }
+                        );
                 }
 
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
             }
         }
 
-        public async Task<string> RemoveDiscountFromOffer(string offerId, string discountId)
+        public async Task<JObject> RemoveDiscountFromOffer(string offerId, string discountId)
         {
             try
             {
@@ -238,47 +316,77 @@ namespace Platform.Client.Services
 
                     if (result.IsModifiedCountAvailable)
                     {
-                        return JsonConvert.SerializeObject(
-                            new
-                            {
-                                status = "success",
-                                result = true
-                            }
-                        );
+                        return
+                           JObject.FromObject(
+                               new
+                               {
+                                   status = "success",
+                                   result = true,
+                                   message = "Added Discount to Offer"
+                               }
+                           );
                     }
                     else
                     {
-                        return JsonConvert.SerializeObject(
-                            new
-                            {
-                                status = "fail",
-                                result = false
-                            }
-                        );
+                        return
+                            JObject.FromObject(
+                                new
+                                {
+                                    status = "false",
+                                    result = false,
+                                    message = "Could not add Discount to Offer"
+                                }
+                            );
                     }
                 }
                 else
                 {
-                    return JsonConvert.SerializeObject(
-                            new
-                            {
-                                status = "fail",
-                                result = false,
-                                message = "Discount does not exist in Offer"
-                            }
-                        );
+                    return
+                           JObject.FromObject(
+                               new
+                               {
+                                   status = "false",
+                                   result = false,
+                                   message = "That offer does not contain this discount"
+                               }
+                           );
                 }
-
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
             }
         }
+
+        /* ******************
+        Helper Methods 
+        */
+        private Offers GetOfferById(string id)
+        {
+            var queryableOffer = OffersCollection.AsQueryable();
+            var queryOffer = from o in queryableOffer
+                             where o.Id.Equals(ObjectId.Parse(id))
+                             select o;
+            return queryOffer.First();
+        }
+
+        private Distributor GetDistributorById(string id)
+        {
+            var queryable = DistributorsCollection.AsQueryable();
+            var query = from p in queryable
+                        where p.Id.Equals(ObjectId.Parse(id))
+                        select p;
+            return query.First();
+        }
+
+      
     }
 }

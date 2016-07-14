@@ -60,6 +60,7 @@
     <Compile Include="Discount.cs" />
     <Compile Include="Distributor.cs" />
     <Compile Include="Feature.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Offers.cs" />
     <Compile Include="Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,9 +69,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Segments\Distributors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

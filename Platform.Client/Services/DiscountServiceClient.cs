@@ -8,30 +8,41 @@ using Domain;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Platform.Client.Services
 {
     public class DiscountServiceClient : BaseModel, IDiscountServiceClient
     {
-        public async Task<string> CreateDiscount(Discount discount)
+        public async Task<JObject> CreateDiscount(Discount discount)
         {
             try
             {
                 await DiscountCollection.InsertOneAsync(discount);
-                return discount.ToBsonDocument().ToJson();
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = discount
+                    }
+                );
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
             }
         }
 
-        public async Task<string> DeleteDiscount(string id)
+        public async Task<JObject> DeleteDiscount(string id)
         {
             try
             {
@@ -41,33 +52,44 @@ namespace Platform.Client.Services
 
                 if (result.IsAcknowledged)
                 {
-                    return JsonConvert.SerializeObject(new
-                    {
-                        status = "success",
-                        result = true
-                    });
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "success",
+                                result = true,
+                                message = "Discount was deleted"
+                            }
+                        );
                 }
                 else
                 {
-                   return JsonConvert.SerializeObject(new
-                    {
-                        status = "false",
-                        result = false
-                    });
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "false",
+                                result = false,
+                                message = "Discount could not be deleted"
+                            }
+                        );
                 }
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
             }
         }
 
-        public string GetDiscount(string id)
+        public JObject GetDiscount(string id)
         {
             try
             {
@@ -75,25 +97,58 @@ namespace Platform.Client.Services
                 var queryOffer = from d in queryableDiscount
                                  where d.Id.Equals(ObjectId.Parse(id))
                                  select d;
-                return queryableDiscount.First().ToJson();
-
+                var discount = queryableDiscount.First();
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = discount
+                    }
+                );
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new
-                {
-                    status = "Exception Thrown",
-                    result = false,
-                    message = ex.Message
-                });
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
             }
            
         }
 
-        public string GetDiscounts()
+        public JObject GetDiscounts()
         {
-            List<Discount> collection = DiscountCollection.Find(new BsonDocument()).ToList();
-            return collection.ToJson();
+            try
+            {
+                List<Discount> collection = DiscountCollection.Find(new BsonDocument()).ToList();
+                JObject returnJson = JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = collection
+                    }
+                );
+                return returnJson;
+            }
+            catch(Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            }
+                
         }
     }
 }

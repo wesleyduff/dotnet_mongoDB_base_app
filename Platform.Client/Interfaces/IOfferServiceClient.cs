@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,13 @@ namespace Platform.Client.Interfaces
 {
     public interface IOfferServiceClient
     {
-        List<Offers> GetOffers(string distributorId);
-        string GetOffer(string offerId);
-        Task<string> CreateOffer(Offers offer);
-        Task<bool> DeleteOffer(string id);
-        Task<string> AddOfferToDistributor(string distributorId, string offerId);
-        Task<string> AddDiscountToOffer(string offerId, string discountId);
-        Task<string> RemoveDiscountFromOffer(string offerId, string discountId);
+        JObject GetOffersForDistributor(string distributorId);
+        JObject GetOffer(string offerId);
+        JObject GetOffers();
+        Task<JObject> CreateOffer(Offers offer);
+        Task<JObject> DeleteOffer(string id);
+        Task<JObject> AddOfferToDistributor(string distributorId, Offers offer);
+        Task<JObject> AddDiscountToOffer(string offerId, Discount discount);
+        Task<JObject> RemoveDiscountFromOffer(string offerId, string discountId);
     }
 }

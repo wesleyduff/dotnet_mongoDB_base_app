@@ -10,6 +10,9 @@ using BikeStoreApi.Composers;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System.Web.Http.Results;
+using System.Web.Http.Cors;
+using Platform.Client.Interfaces;
+using Newtonsoft.Json.Linq;
 
 namespace BikeStoreApi.Controllers
 {
@@ -19,11 +22,11 @@ namespace BikeStoreApi.Controllers
 
         #region Constructor
 
-        private readonly IDistributorComposer distributorsComposer;
+        private readonly IDistributorsServiceClient _distributorsServiceClient;
 
-        public DistributorController(IDistributorComposer distributorsComposer)
+        public DistributorController(IDistributorsServiceClient distributorsServiceClient)
         {
-            this.distributorsComposer = distributorsComposer;
+            _distributorsServiceClient = distributorsServiceClient;
         }
 
         #endregion
@@ -33,96 +36,23 @@ namespace BikeStoreApi.Controllers
 
 
         #region Get All Distributors
-        /* 
-            GET api/distributor/GetDistributors
-        */
-        [Route("api/Distributors/All")]
-        [HttpGet]
-        public async Task<string> All()
+
+        public async Task<JObject> Create(Distributor postDistributor)
         {
-            var model = await distributorsComposer.GetDistributorsList();
-            return model;
+            return await _distributorsServiceClient.CreateDistributor(postDistributor);
         }
 
-        public async Task<string> Create(Distributor postDistributor)
+        public JObject Get()
         {
-            var distributor = new Distributor()
-            {
-                Address = postDistributor.Address,
-                Contact = postDistributor.Contact,
-                Inventory = postDistributor.Inventory,
-                Name = postDistributor.Name
-            };
-
-            try
-            {
-                var model = await distributorsComposer.CreateDistributor(distributor);
-                return model.ToJson();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return JsonConvert.SerializeObject(new { Status = false } );
-            }
-            
+            return  _distributorsServiceClient.GetDistributors();
         }
 
-        public async Task<string> Get()
+        public IHttpActionResult Get(string id)
         {
-            try
-            {
-                var model = await distributorsComposer.GetDistributorsList();
-                return model.ToJson();
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new { Status = false });
-            }
+            return Ok(_distributorsServiceClient.GetDistributor(id));
         }
+        
 
-        public string Get(string id)
-        {
-            try
-            {
-                var model = distributorsComposer.GetDistributor(id);
-                return model.ToJson();
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new { Status = false });
-            }
-        }
-
-        [Route("api/Distributors/AddInventory")]
-        [HttpPost]
-        public string AddInventory(string id, Bike bike)
-        {
-            try
-            {
-                var model = distributorsComposer.AddProductToInventory(id, bike);
-                return model.ToJson();
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new { Status = false });
-            }
-        }
-
-        [Route("api/Bike/AdjustPrice")]
-        [HttpPost]
-        public string AdjustPrice(string id, Bike.AdjustPrice adjustprice)
-        {
-            try
-            {
-                var model = distributorsComposer.AdjustPrice(id, adjustprice);
-                model.ToJson();
-                return JsonConvert.SerializeObject(new { Status = true });
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new { Status = false });
-            }
-        }
 
 
         #endregion

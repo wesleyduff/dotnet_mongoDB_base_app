@@ -20,9 +20,6 @@ namespace Platform.Client.Services.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _offersServiceClient = new OfferServiceClient();
-
-            _offersComposer = new OffersComposer(_offersServiceClient);
         }
 
 

@@ -12,9 +12,9 @@ namespace Domain
      
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public List<Bike> Inventory { get; set; }
+        public List<Line> Inventory { get; set; }
         //List of offers by ID
-        public List<string> Offers { get; set; }
+        public List<Offers> Offers { get; set; }
         public List<ReceiptType> ReceiptTpesOffered { get; set; }
     }
 

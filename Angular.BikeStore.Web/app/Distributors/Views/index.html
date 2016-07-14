@@ -1,0 +1,128 @@
+﻿<h2>{{title}}</h2>
+<div class="col-md-4">
+    <div class="thumbnail">
+        <div class="visual"><div>{{distributors.length}}</div></div>
+        <div class="caption">
+            <h3>TOTAL Discounts</h3>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p>
+                <a href="#" class="btn btn-primary" role="button">Button</a>
+                <a href="#" class="btn btn-default" role="button">Button</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="row clearfix">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            Id
+                        </th>
+                        <th class="text-center">
+                            Title
+                        </th>
+                        <th class="text-center">
+                            Code
+                        </th>
+                        <th class="text-center">
+                            Percentage
+                        </th>
+                        <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="distributor in distributors" data-row="display">
+                        <td>
+                            <span>{{distributor.Id}}</span>
+                        </td>
+                        <td data-name="title">
+                            10% off during the summer holidays
+                        </td>
+                        <td data-name="code">
+                           CODE123
+                        </td>
+                        <td data-name="percentage">
+                            10%
+                        </td>
+                        <td data-name="del">
+                            <button class="btn btn-danger glyphicon glyphicon-remove"></button>
+                            <button class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="GetDistributor(distributor.Id)" data-toggle="modal" data-target="#distributorsModal"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="distributorsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h1 class="modal-title text-center">{{distributorsModalData.Name}}</h1>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                        <address class="thumbnail">
+                            <strong>Address:</strong>
+                            <hr/>
+                            {{distributorsModalData.Address.StreetAddress}}
+                            <br/>
+                            {{distributorsModalData.Address.StreetAddress2}}
+                            <br />
+                            {{distributorsModalData.Address.City}}, {{distributorsModalData.Address.State}} {{distributorsModalData.PostalCode}}
+                            <br />
+                            {{distributorsModalData.Address.Country}}
+                        </address>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <strong>Contact:</strong>
+                            <hr />
+                            {{distributorsModalData.Contact.FullName}}
+                            <br />
+                            {{distributorsModalData.Address.EmailAddress}}
+                            <br />
+                            {{distributorsModalData.Address.PhoneNumber}}
+                            <br />
+                            Sales Dept: {{distributorsModalData.Address.SalesDepartment}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="list-group">
+                            <div ng-repeat="offer in distributorsModalData.Offers" href="#" class="list-group-item">
+                                <strong>Offers</strong>
+                                <hr />
+                                <div class="thumbnail">
+                                    <h2 class="list-group-item-heading">{{offer.Title}}</h2>
+                                    <hr/>
+                                    <p class="list-group-item-text">
+                                        <ul>
+                                            <li ng-repeat="discount in offer.Discounts">
+                                                <dl>
+                                                    Discount:
+                                                    <dt>{{discount.Title}}</dt>
+                                                </dl>
+                                                <hr ng-if="!$last" />
+                                            </li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
