@@ -16,6 +16,6 @@ namespace Platform.Client.Interfaces
         //remove and add bike to line through update
         Task<JObject> Update(UpdateLine postUpdateLine);
         Task<JObject> AddNewLineToInventory(string distributorId, Line line);
-        Task<JObject> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice);
+        Task<JObject> AdjustPrice(Bike.AdjustPrice adjustPrice);
     }
 }

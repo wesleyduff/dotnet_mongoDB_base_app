@@ -19,12 +19,12 @@ namespace BikeStoreApi.Controllers
             _lineServiceClient = lineServiceClient;
         }
 
+        [Route("api/Inventory/AdjustPrice")]
         //todo:: update price for bike - failing on post
-        [Route("api/Invenotry/AdjustPrice")]
         [HttpPost]
-        public async Task<JObject> AdjustPrice(string distributorId, Bike.AdjustPrice adjustprice)
+        public async Task<JObject> AdjustPrice(Bike.AdjustPrice adjustprice)
         {
-            return await _lineServiceClient.AdjustPrice(distributorId, adjustprice);
+            return await _lineServiceClient.AdjustPrice(adjustprice);
         }
 
         [Route("api/Inventory/NewLine")]

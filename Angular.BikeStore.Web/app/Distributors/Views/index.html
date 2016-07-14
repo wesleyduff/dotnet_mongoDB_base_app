@@ -6,8 +6,7 @@
             <h3>TOTAL Discounts</h3>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p>
-                <a href="#" class="btn btn-primary" role="button">Button</a>
-                <a href="#" class="btn btn-default" role="button">Button</a>
+                <a ui-sref="distributors.createDistributor" ng-click="manageActionButtonTitle()" class="btn btn-primary btn-large" role="button">{{actionButtonTitle}}</a>
             </p>
         </div>
     </div>
@@ -58,6 +57,15 @@
         </div>
     </div>
 </div>
+
+<!-- START : UI-VIEW EditCreateView -->
+<div id="edit-create">
+    <div ui-view="EditCreateView"></div>
+</div>
+<!-- START : UI-VIEW EditCreateView -->
+
+
+<!-- START : MODAL - Distributor View -->
 <div id="distributorsModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -169,3 +177,5 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</div>
+<!-- END : MODAL - Distributor View -->

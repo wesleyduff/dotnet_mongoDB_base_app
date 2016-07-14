@@ -187,16 +187,18 @@ namespace Platform.Client.Services
             return await this.UpdateInventoryList(distributorId, inventoryList);
         }
 
-        public async Task<JObject> AdjustPrice(string distributorId, Bike.AdjustPrice adjustPrice)
+        public async Task<JObject> AdjustPrice(Bike.AdjustPrice adjustPrice)
         {
+            string distributorId = ObjectId.Parse(adjustPrice.DistributorId).ToString();
+            string bikeId = ObjectId.Parse(adjustPrice.BikeId).ToString();
             List<Line> inventory = ReturnInventoryForDistributor(distributorId);
             //find the correct bike to adjust price
-            foreach (var line in inventory.Where(line => line.Bike.Id == adjustPrice.BikeId))
+            foreach (var line in inventory.Where(line => line.Bike.Id == bikeId))
             {
                 line.Bike.Price = adjustPrice.NewPrice;
             }
 
-            return await this.UpdateInventoryList(distributorId, inventory);
+            return await this.UpdateInventoryList(adjustPrice.DistributorId, inventory);
 
         }
 
@@ -216,7 +218,7 @@ namespace Platform.Client.Services
                                new
                                {
                                    status = "success",
-                                   result = true,
+                                   result = inventory,
                                    message = "Inventory Updated"
                                }
                            );

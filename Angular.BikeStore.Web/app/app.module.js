@@ -9,17 +9,20 @@
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
 
         //Setting up for CORS
+        /*
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common["X-Requested-With"];
         $httpProvider.defaults.headers.common["Accept"] = "application/json";
         $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+        */
 
 
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/Home");
-
         // Now set up the states
         $stateProvider
+          //editable states
+            
           .state('home', {
               url: "/Home",
               views: {
@@ -82,6 +85,22 @@
                     return $ocLazyLoad.load([
                         './app/Distributors/bundle/distributors-controller.js',
                         './app/Distributors/bundle/distributors-services.js'
+                    ])
+                }]
+            }
+        })
+        .state('distributors.createDistributor', {
+            views: {
+                "EditCreateView": {
+                    controller: 'CreateDistributorCtrl',
+                    templateUrl: "./app/Distributors/Views/createDistributor.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Distributors/bundle/distributorsCreate-controller.js",
+                        "./app/Distributors/Views/createDistributor.html"
                     ])
                 }]
             }

@@ -6,7 +6,7 @@ namespace Domain
 {
     public class Bike
     {
-        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public Brand Brand { get; set; }
         public BikeModel Model { get; set; }
@@ -15,6 +15,9 @@ namespace Domain
 
         public class AdjustPrice
         {
+            [BsonId]
+            public string DistributorId { get; set; }
+            [BsonId]
             public string BikeId { get; set; }
             public Price NewPrice { get; set; }
         }

@@ -4,7 +4,7 @@
     angular.module('app')
 
     .controller('DistributorsCtrl', ['$scope', '$distributorsFactory', function ($scope, $distributorsFactory) {
-
+        $scope.actionButtonTitle = "Add New Distributor";
         $scope.title = "Distributors";
         $scope.distributors = [];
         $scope.selectedDistributor = {};
@@ -22,6 +22,16 @@
 
         })();
 
+        var state = 0;
+        $scope.manageActionButtonTitle = function () {
+            if (state === 0) {
+                state = 1;
+                $scope.actionButtonTitle = "Save Distributor";
+            } else if (state === 1) {
+                state = 0;
+                $scope.actionButtonTitle = "Add New Distributor";
+            }
+        }
 
         $scope.GetDistributor = function (distributorId) {
            
@@ -33,19 +43,16 @@
         }
 
         $scope.UpdatePrice = function (distributorId, bikeId, newPrice) {
-            var adjustprice = {
+            var postData = {
+                distributorId: distributorId,
                 BikeId: bikeId,
-                Price: {
+                NewPrice: {
                     Value: newPrice
                 }
             };
-            var postData = {
-                distributorId: distributorId,
-                adjustprice: adjustprice
-            };
             $distributorsFactory.adjustPrice(postData).then(function (response) {
                 if (response.status === "success") {
-                    $scope.distributorsModalData = response.result;
+                    $scope.distributorsModalData.Inventory = response.result;
                 }
             });
         }

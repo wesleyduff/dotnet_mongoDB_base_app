@@ -5,7 +5,7 @@
     angular.module('app')
 
     .factory('$distributorsFactory', ['$resource', '$q', 'APPSETTINGS', function ($resource, $q, APPSETTINGS) {
-        var resource = $resource(APPSETTINGS.APISERVERPATH + '/api/Distributor/:distributorId',
+        var distributorResource = $resource(APPSETTINGS.APISERVERPATH + '/api/Distributor/:distributorId',
              {
                  distributorId: '@distributorId'
              },
@@ -13,10 +13,18 @@
                  getDistributor: {
                      method: 'GET',
                      distributorId: '@distributorId'
-                 },
+                 }
+             }
+         );
+
+        var inventoryResource = $resource(APPSETTINGS.APISERVERPATH + '/api/Inventory/',
+             {
+                 distributorId: '@distributorId'
+             },
+             {
                  adjustPrice: {
                      method: 'POST',
-                     url : 'api/Invenotry/AdjustPrice'
+                     url: APPSETTINGS.APISERVERPATH + '/api/Inventory/AdjustPrice'
                  }
              }
          );
@@ -25,8 +33,7 @@
             //todo:// Adjust Price failing on post
             adjustPrice: function(postData){
                 var deferred = $q.defer();
-                resource.adjustPrice(postData, function (data) {
-                    data.result = offer;
+                inventoryResource.adjustPrice(postData, function (data) {
                     deferred.resolve(data);
                 });
 
@@ -34,7 +41,7 @@
             },
             get: function () {
                 var deferred = $q.defer();
-                resource.get({}, function (data) {
+                distributorResource.get({}, function (data) {
                     deferred.resolve(data);
                 });
 
@@ -42,7 +49,7 @@
             },
             getDistributor: function(distributorId){
                 var deferred = $q.defer();
-                resource.getDistributor({ id: distributorId }, function (data) {
+                distributorResource.getDistributor({ id: distributorId }, function (data) {
                     deferred.resolve(data);
                 });
 
@@ -50,7 +57,7 @@
             },
             delete: function (Id) {
                 var deferred = $q.defer();
-                resource.delete({
+                distributorResource.delete({
                     id: Id
                 }, function (data) {
                     deferred.resolve(data);
@@ -63,7 +70,7 @@
 
                 }
                 var deferred = $q.defer();
-                resource.save(offer, function (data) {
+                distributorResource.save(offer, function (data) {
                     data.result = offer;
                     deferred.resolve(data);
                 });
