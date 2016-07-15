@@ -59,7 +59,6 @@
     <Compile Include="Contact.cs" />
     <Compile Include="Discount.cs" />
     <Compile Include="Distributor.cs" />
-    <Compile Include="Feature.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Offers.cs" />
     <Compile Include="Price.cs" />

@@ -7,13 +7,14 @@
         APISERVERPATH: 'http://localhost:26639'
     })
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
-
+      
         //Setting up for CORS
         /*
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common["X-Requested-With"];
+             
+  $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.headers.common["X-Requested-With"];
         $httpProvider.defaults.headers.common["Accept"] = "application/json";
-        $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+        $httpProvider.defaults.headers.common["Content-Type"] = "application/json"       
         */
 
 
@@ -101,6 +102,22 @@
                     return $ocLazyLoad.load([
                         "./app/Distributors/bundle/distributorsCreate-controller.js",
                         "./app/Distributors/Views/createDistributor.html"
+                    ])
+                }]
+            }
+        })
+        .state('distributors.addItemToInventory', {
+            views: {
+                "EditCreateView": {
+                    controller: 'InventoryCtrl',
+                    templateUrl: "./app/Distributors/Views/addInventoryItem.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Distributors/bundle/addInventory-controller.js",
+                        "./app/Distributors/Views/addInventoryItem.html"
                     ])
                 }]
             }

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 using Platform.Client.Interfaces;
 using System;
@@ -20,7 +21,6 @@ namespace BikeStoreApi.Controllers
         }
 
         [Route("api/Inventory/AdjustPrice")]
-        //todo:: update price for bike - failing on post
         [HttpPost]
         public async Task<JObject> AdjustPrice(Bike.AdjustPrice adjustprice)
         {
@@ -29,10 +29,19 @@ namespace BikeStoreApi.Controllers
 
         [Route("api/Inventory/NewLine")]
         [HttpPost]
-        public IHttpActionResult AddNewLineToInventory(string distributorId, Line line)
+        public async Task<JObject> AddNewLineToInventory(string distributorId, Line line)
         {
-            return Ok(_lineServiceClient.AddNewLineToInventory(distributorId, line));
+            return await _lineServiceClient.AddNewLineToInventory(distributorId, line);
         }
+
+        [Route("api/Distributor/Bike")]
+        [HttpGet]
+        public async Task<JObject> DeleteLineFromDistributor(string distributorId, string bikeId)
+        {
+            return await _lineServiceClient.DeleteLineFromDistributor(distributorId, bikeId);
+        }
+        
+
 
         public IHttpActionResult Update(UpdateLine postUpdateLine)
         {
@@ -49,7 +58,7 @@ namespace BikeStoreApi.Controllers
             return Ok(_lineServiceClient.Create(line));
         }
 
-        [Route("api/Inventory/NewLine")]
+        [Route("api/Distributor/Inventory")]
         [HttpPost]
         public IHttpActionResult GetDistributorsInventory(string distributorId)
         {

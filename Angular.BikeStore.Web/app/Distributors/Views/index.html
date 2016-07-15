@@ -6,7 +6,7 @@
             <h3>TOTAL Discounts</h3>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p>
-                <a ui-sref="distributors.createDistributor" ng-click="manageActionButtonTitle()" class="btn btn-primary btn-large" role="button">{{actionButtonTitle}}</a>
+                <a ui-sref="distributors.createDistributor" ng-click="updateUIViewVisibility(true)" ng-class="{'disabled' : disableActionButton}" class="btn btn-primary btn-large" role="button">Add New Distributor</a>
             </p>
         </div>
     </div>
@@ -54,15 +54,17 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- START : UI-VIEW EditCreateView -->
+            <div id="edit-create" ng-show="disableActionButton">
+                <div ui-view="EditCreateView"></div>
+            </div>
+            <!-- START : UI-VIEW EditCreateView -->
+
         </div>
     </div>
 </div>
 
-<!-- START : UI-VIEW EditCreateView -->
-<div id="edit-create">
-    <div ui-view="EditCreateView"></div>
-</div>
-<!-- START : UI-VIEW EditCreateView -->
+
 
 
 <!-- START : MODAL - Distributor View -->
@@ -148,6 +150,9 @@
                                         </span>
                                     </div><!-- /input-group -->
                                 </div>
+                                <div class="delete">
+                                    <button ng-click="deleteProductFromInventory(distributorsModalData.Id, product.Bike.Id)" class="btn btn-danger glyphicon glyphicon-remove"></button>
+                                </div>
                                 <hr />
                                 <div class="thumbnail">
                                     <p>{{product.Bike.Model.Description}}</p>
@@ -167,12 +172,9 @@
                             </div>
                             <br/>
                             <br/>
+                            <button ui-sref="distributors.addItemToInventory" ng-click="updateUIViewVisibility(true);" onclick="$('#distributorsModal').modal('hide');" class="btn btn-primary btn-large">Add Inventory Item</button>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

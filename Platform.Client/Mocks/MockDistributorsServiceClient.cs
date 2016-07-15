@@ -43,10 +43,8 @@ namespace Platform.Client.Mocks
                     EmailAddress = "test@test.com",
                     FirstName = "Jane",
                     FullName = "Jane Doe",
-                    IsPrimary = true,
                     LastName = "Doe",
-                    PhoneNumber = "555-555-5555",
-                    SalesDepartment = "Merch"
+                    PhoneNumber = "555-555-5555"
                 }
             };
 

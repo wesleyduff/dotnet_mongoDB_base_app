@@ -12,6 +12,7 @@ namespace Platform.Client.Interfaces
     {
         JObject GetDistributorsInventory(string distributorId);
         Task<JObject> Create(Line line);
+        Task<JObject> DeleteLineFromDistributor(string distributorId, string bikeId);
         Task<JObject> Delete(string lineId);
         //remove and add bike to line through update
         Task<JObject> Update(UpdateLine postUpdateLine);

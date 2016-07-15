@@ -4,7 +4,7 @@
     angular.module('app')
 
     .controller('CreateDistributorCtrl', ['$scope', '$distributorsFactory', function ($scope, $distributorsFactory) {
-        $scope.title = "Create Distributor";
+        $scope.dubTitle = "Create Distributor";
     }]);
 
 })(angular);

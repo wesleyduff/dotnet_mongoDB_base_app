@@ -4,7 +4,7 @@
     angular.module('app')
 
     .controller('DistributorsCtrl', ['$scope', '$distributorsFactory', function ($scope, $distributorsFactory) {
-        $scope.actionButtonTitle = "Add New Distributor";
+        $scope.disableActionButton = false;
         $scope.title = "Distributors";
         $scope.distributors = [];
         $scope.selectedDistributor = {};
@@ -21,15 +21,12 @@
             });
 
         })();
-
-        var state = 0;
-        $scope.manageActionButtonTitle = function () {
-            if (state === 0) {
-                state = 1;
-                $scope.actionButtonTitle = "Save Distributor";
-            } else if (state === 1) {
-                state = 0;
-                $scope.actionButtonTitle = "Add New Distributor";
+        $scope.updateUIViewVisibility = function (state) {
+            
+            if (!state) {
+                $scope.disableActionButton = false;
+            } else {
+                $scope.disableActionButton = true;
             }
         }
 
@@ -58,6 +55,29 @@
         }
 
 
+        $scope.createDistributor = function (postData) {
+            $distributorsFactory.create(postData).then(function (response) {
+                if (response.status === "success") {
+                    $scope.disableActionButton = false;
+                    $scope.distributors.push(response.result);
+                }
+            })
+        }
+
+
+        $scope.deleteProductFromInventory = function (distributorId, bikeId) {
+            $distributorsFactory.deleteProductFromInventory(distributorId, bikeId).then(function (response) {
+                if (response.status === "success") {
+                    $scope.distributorsModalData.Inventory = response.result;
+                }
+            })
+        }
+
+
+        /* EVENT HANDLERS FROM OTHER CONTROLLERS */
+        $scope.$on('inventoryUpdate', function () {
+            $scope.disableActionButton = false;
+        });
 
         //Update the collection for Distributors
         function updateDistributorsCollection(distributorData) {

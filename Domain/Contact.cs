@@ -11,8 +11,6 @@ namespace Domain
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
-        public string SalesDepartment { get; set; }
-        public bool IsPrimary { get; set; }
 
 
         private string _fullName;

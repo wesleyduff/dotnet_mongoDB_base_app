@@ -176,15 +176,42 @@ namespace Platform.Client.Services
 
         public async Task<JObject> AddNewLineToInventory(string distributorId, Line line)
         {
-            var queryable = DistributorsCollection.AsQueryable();
-            var inventoryQuery = from p in queryable
-                                 where p.Id.Equals(ObjectId.Parse(distributorId))
-                                 select new { p.Inventory };
+            try
+            {
+                line.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
+                line.Bike.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
+                var queryable = DistributorsCollection.AsQueryable();
+                var inventoryQuery = from p in queryable
+                                     where p.Id.Equals(ObjectId.Parse(distributorId))
+                                     select new { p.Inventory };
+                List<Line> inventoryList;
+                    inventoryList = inventoryQuery.First().Inventory;
+                    if(inventoryList != null)
+                    {
+                        inventoryList.Add(line);
+                    } else
+                    {
+                        inventoryList = new List<Line>() { line };
+                    }
+                    
+                   
+               
 
-            var inventoryList = inventoryQuery.First().Inventory;
-            inventoryList.Add(line);
-
-            return await this.UpdateInventoryList(distributorId, inventoryList);
+                return await this.UpdateInventoryList(distributorId, inventoryList);
+            }
+            catch (Exception ex)
+            {
+                return
+                              JObject.FromObject(
+                                  new
+                                  {
+                                      status = "false",
+                                      result = false,
+                                      message = "Could not update inventory. Line item in inventory not found."
+                                  }
+                              );
+            }
+          
         }
 
         public async Task<JObject> AdjustPrice(Bike.AdjustPrice adjustPrice)
@@ -258,6 +285,38 @@ namespace Platform.Client.Services
                                  select new { p.Inventory };
             var inventoryList = inventoryQuery.First().Inventory;
             return inventoryList;
+        }
+
+        public async Task<JObject> DeleteLineFromDistributor(string distributorId, string bikeId)
+        {
+            try
+            {
+                string _distributorId = ObjectId.Parse(distributorId).ToString();
+                string _bikeId = ObjectId.Parse(bikeId).ToString();
+                List<Line> inventory = ReturnInventoryForDistributor(distributorId);
+
+
+                //find the correct bike to adjust price
+                foreach (var line in inventory.Where(line => line.Bike.Id == _bikeId))
+                {
+                    inventory.Remove(line);
+                    break;
+                }
+
+                return await UpdateInventoryList(distributorId, inventory);
+
+            }
+            catch (Exception ex)
+            {
+                return
+                 JObject.FromObject(
+                 new
+                 {
+                     status = "Exception Thrown",
+                     result = false,
+                     message = ex.Message
+                 });
+            }
         }
     }
 }
