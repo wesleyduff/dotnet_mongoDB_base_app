@@ -83,6 +83,8 @@ namespace BikeStoreApi.App_Start
             kernel.Bind<IDiscountServiceClient>().To<DiscountServiceClient>();
             kernel.Bind<ILineServiceClient>().To<LineServiceClient>();
 
+            kernel.Bind<IDiscountComposer>().To<DiscountComposer>();
+
 
         }        
     }

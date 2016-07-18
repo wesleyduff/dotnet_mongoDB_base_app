@@ -62,6 +62,7 @@
     <Compile Include="DataContracts\Offers\DiscountContract.cs" />
     <Compile Include="DataContracts\Offers\OffersContract.cs" />
     <Compile Include="DataContracts\Offers\OffersDataContract.cs" />
+    <Compile Include="Interfaces\ICrud.cs" />
     <Compile Include="Interfaces\ILineServiceClient.cs" />
     <Compile Include="Interfaces\IOfferServiceClient.cs" />
     <Compile Include="Mocks\MockOffersServiceClient.cs" />

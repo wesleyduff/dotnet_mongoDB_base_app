@@ -9,8 +9,14 @@ namespace Platform.Client
         public IMongoDatabase Database;
         public BaseModel()
         {
+            /* Local
             var client = new MongoClient(Settings.Default.mongoLocal);
             Database = client.GetDatabase(Settings.Default.mongoLocalDb);
+            */
+
+            /* PROD */
+            var client = new MongoClient(Settings.Default.BikeDistributorConnectionString);
+            Database = client.GetDatabase(Settings.Default.BikeDistributorDatabaseName);
         }
 
         public IMongoCollection<Distributor> DistributorsCollection {

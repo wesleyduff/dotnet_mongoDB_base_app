@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace BikeStoreApi.Interfaces
 {
-    public interface IDiscountComposer
+    public interface IDiscountComposer : ICrud<Discount>
     {
-
-        Task<string> CreateDiscount(Discount discount);
-        string GetDiscount(string id);
-        JObject GetDiscounts();
-        Task<string> DeleteDiscount(string id);
+        void compose();
     }
 }

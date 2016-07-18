@@ -12,8 +12,151 @@ using Newtonsoft.Json.Linq;
 
 namespace Platform.Client.Services
 {
-    public class DiscountServiceClient : BaseModel, IDiscountServiceClient
+    public class DiscountServiceClient : BaseModel, IDiscountServiceClient, ICrud<Discount>
     {
+        public async Task<JObject> Creat(Discount item)
+        {
+            try
+            {
+                await DiscountCollection.InsertOneAsync(item);
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = item
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            }
+        }
+
+        public async Task<JObject> Delete(string itemId)
+        {
+            try
+            {
+                var filter = Builders<Discount>.Filter.Eq("_id", ObjectId.Parse(itemId));
+
+                DeleteResult result = await DiscountCollection.DeleteOneAsync(filter);
+
+                if (result.IsAcknowledged)
+                {
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "success",
+                                result = true,
+                                message = "Discount was deleted"
+                            }
+                        );
+                }
+                else
+                {
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "false",
+                                result = false,
+                                message = "Discount could not be deleted"
+                            }
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            }
+        }
+        public JObject Get()
+        {
+            try
+            {
+                List<Discount> collection = DiscountCollection.Find(new BsonDocument()).ToList();
+                JObject returnJson = JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = collection
+                    }
+                );
+                return returnJson;
+            }
+            catch (Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            }
+        }
+
+        public JObject Get(string itemId)
+        {
+            try
+            {
+                var queryableDiscount = DiscountCollection.AsQueryable();
+                var queryOffer = from d in queryableDiscount
+                                 where d.Id.Equals(ObjectId.Parse(itemId))
+                                 select d;
+                var discount = queryableDiscount.First();
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "success",
+                        result = discount
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
+            }
+        }
+
+        public Task<JObject> Update(Discount item)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        /* OLD
+
         public async Task<JObject> CreateDiscount(Discount discount)
         {
             try
@@ -41,7 +184,6 @@ namespace Platform.Client.Services
                 );
             }
         }
-
         public async Task<JObject> DeleteDiscount(string id)
         {
             try
@@ -88,7 +230,6 @@ namespace Platform.Client.Services
                 );
             }
         }
-
         public JObject GetDiscount(string id)
         {
             try
@@ -119,9 +260,8 @@ namespace Platform.Client.Services
                    }
                );
             }
-           
-        }
 
+        }
         public JObject GetDiscounts()
         {
             try
@@ -136,7 +276,7 @@ namespace Platform.Client.Services
                 );
                 return returnJson;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return
                     JObject.FromObject(
@@ -148,7 +288,9 @@ namespace Platform.Client.Services
                     }
                 );
             }
-                
+
         }
+         --*/
     }
+
 }

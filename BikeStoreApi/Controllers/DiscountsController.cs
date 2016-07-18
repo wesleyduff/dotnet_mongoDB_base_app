@@ -17,33 +17,31 @@ namespace BikeStoreApi.Controllers
 {
     public class DiscountsController : ApiController
     {
-        private readonly IDiscountServiceClient _discountServiceClient;
+        private readonly IDiscountComposer _composer;
 
-        public DiscountsController(IDiscountServiceClient discountServiceClient)
+        public DiscountsController(IDiscountComposer composer)
         {
-            _discountServiceClient = discountServiceClient;
+            _composer = composer;
         }
 
-        public IHttpActionResult Get()
+        public JObject Get()
         {
-            return Ok(_discountServiceClient.GetDiscounts());
+            return _composer.Get();
         }
 
-        public IHttpActionResult Get(string id)
+        public JObject Get(string id)
         {
-            return Ok(_discountServiceClient.GetDiscount(id));
+            return _composer.Get(id);
         }
 
         public async Task<JObject> Create(Discount discount)
         {
-            discount.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
-            return await _discountServiceClient.CreateDiscount(discount);
+            return await _composer.Create(discount);
         }
 
         public async Task<JObject> Delete(string id)
         {
-            return await _discountServiceClient.DeleteDiscount(id);
-
+            return await _composer.Delete(id);
         }
     }
 }
