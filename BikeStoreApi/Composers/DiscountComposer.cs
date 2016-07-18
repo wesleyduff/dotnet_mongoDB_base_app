@@ -19,7 +19,7 @@ namespace BikeStoreApi.Composers
             _discountServiceClient = discountServiceClient;
         }
 
-        public void compose()
+        public void Compose()
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace BikeStoreApi.Composers
         {
             //Create string ID from MonogDB BsonId
             item.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
-            return _discountServiceClient.Creat(item);
+            return _discountServiceClient.Create(item);
         }
 
         public Task<JObject> Delete(string itemId)
@@ -43,7 +43,8 @@ namespace BikeStoreApi.Composers
 
         public JObject Get(string itemId)
         {
-            return _discountServiceClient.Get(itemId);
+            ObjectId mongoId = ObjectId.Parse(itemId);
+            return _discountServiceClient.Get(mongoId);
         }
 
         /* Not Implemented For This Demo */

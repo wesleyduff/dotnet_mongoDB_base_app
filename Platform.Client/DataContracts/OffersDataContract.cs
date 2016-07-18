@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.Client.DataContracts.Offers
+namespace Platform.Client.DataContracts
 {
     public class OffersDataContract
     {

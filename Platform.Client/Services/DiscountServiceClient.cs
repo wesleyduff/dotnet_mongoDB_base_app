@@ -12,9 +12,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Platform.Client.Services
 {
-    public class DiscountServiceClient : BaseModel, IDiscountServiceClient, ICrud<Discount>
+    public class DiscountServiceClient : BaseModel, IDiscountServiceClient, ICrud<Discount, ObjectId>
     {
-        public async Task<JObject> Creat(Discount item)
+        public async Task<JObject> Create(Discount item)
         {
             try
             {
@@ -116,13 +116,13 @@ namespace Platform.Client.Services
             }
         }
 
-        public JObject Get(string itemId)
+        public JObject Get(ObjectId itemId)
         {
             try
             {
                 var queryableDiscount = DiscountCollection.AsQueryable();
                 var queryOffer = from d in queryableDiscount
-                                 where d.Id.Equals(ObjectId.Parse(itemId))
+                                 where d.Id.Equals(itemId)
                                  select d;
                 var discount = queryableDiscount.First();
                 return
@@ -148,7 +148,7 @@ namespace Platform.Client.Services
             }
         }
 
-        public Task<JObject> Update(Discount item)
+        public Task<JObject> Update(Discount postUpdate)
         {
             throw new NotImplementedException();
         }

@@ -57,11 +57,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
-    <Compile Include="DataContracts\Distributor\DistributorContract.cs" />
-    <Compile Include="DataContracts\Distributor\DistributorsDataContract.cs" />
-    <Compile Include="DataContracts\Offers\DiscountContract.cs" />
-    <Compile Include="DataContracts\Offers\OffersContract.cs" />
-    <Compile Include="DataContracts\Offers\OffersDataContract.cs" />
+    <Compile Include="DataContracts\AddressDataContract.cs" />
+    <Compile Include="DataContracts\BikeDataContract.cs" />
+    <Compile Include="DataContracts\BikeModelDataContract.cs" />
+    <Compile Include="DataContracts\BrandDataContract.cs" />
+    <Compile Include="DataContracts\ContactDataContract.cs" />
+    <Compile Include="DataContracts\DistributorContract.cs" />
+    <Compile Include="DataContracts\DistributorsDataContract.cs" />
+    <Compile Include="DataContracts\LineDataContract.cs" />
+    <Compile Include="DataContracts\PriceDataContract.cs" />
+    <Compile Include="DataContracts\DiscountContract.cs" />
+    <Compile Include="DataContracts\OffersContract.cs" />
+    <Compile Include="DataContracts\OffersDataContract.cs" />
+    <Compile Include="DataContracts\ReceiptTypeDataContract.cs" />
+    <Compile Include="DataContracts\RTypesDataContract.cs" />
     <Compile Include="Interfaces\ICrud.cs" />
     <Compile Include="Interfaces\ILineServiceClient.cs" />
     <Compile Include="Interfaces\IOfferServiceClient.cs" />

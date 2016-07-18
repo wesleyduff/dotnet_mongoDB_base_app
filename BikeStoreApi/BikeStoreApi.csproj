@@ -254,7 +254,6 @@
     <Compile Include="Composers\DistributorsComposer.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
-    <Compile Include="Interfaces\ICrud.cs" />
     <Compile Include="Interfaces\IDiscountComposer.cs" />
     <Compile Include="Composers\OffersComposer.cs" />
     <Compile Include="Controllers\AccountController.cs" />

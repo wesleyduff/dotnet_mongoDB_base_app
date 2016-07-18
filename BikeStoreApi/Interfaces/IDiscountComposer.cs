@@ -1,11 +1,10 @@
 ﻿using Domain;
-using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
+using Platform.Client.Interfaces;
 
 namespace BikeStoreApi.Interfaces
 {
-    public interface IDiscountComposer : ICrud<Discount>
+    public interface IDiscountComposer : ICrud<Discount, string>
     {
-        void compose();
+        void Compose();
     }
 }

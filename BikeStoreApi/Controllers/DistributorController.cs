@@ -21,37 +21,43 @@ namespace BikeStoreApi.Controllers
         
 
         #region Constructor
+        private readonly IDistributorComposer _composer;
 
-        private readonly IDistributorsServiceClient _distributorsServiceClient;
-
-        public DistributorController(IDistributorsServiceClient distributorsServiceClient)
+        public DistributorController(IDistributorComposer composer)
         {
-            _distributorsServiceClient = distributorsServiceClient;
+            _composer = composer;
         }
 
         #endregion
 
-
-
-
-
-        #region Get All Distributors
+        #region CRUD
 
         public async Task<JObject> Create(Distributor postDistributor)
         {
-            return await _distributorsServiceClient.CreateDistributor(postDistributor);
+            return await _composer.Create(postDistributor);
         }
 
         public JObject Get()
         {
-            return  _distributorsServiceClient.GetDistributors();
+            return _composer.Get();
         }
 
-        public IHttpActionResult Get(string id)
+        public JObject Get(string id)
         {
-            return Ok(_distributorsServiceClient.GetDistributor(id));
+            return _composer.Get(id);
         }
-        
+
+        public async Task<JObject> Delete(string distributorsId)
+        {
+            return await _composer.Delete(distributorsId);
+        }
+
+        [Route("api/Distributor/UpdateRecieptTypes")]
+        [HttpPost]
+        public async Task<JObject> UpdateRecieptTypes(UpdateRecieptTypes postUpdate)
+        {
+            return await _composer.UpdateRecieptTypes(postUpdate);
+        }
 
 
 

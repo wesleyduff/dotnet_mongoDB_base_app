@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Platform.Client.DataContracts.Offers
+namespace Platform.Client.DataContracts
 {
     public class DiscountContract
     {

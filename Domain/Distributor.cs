@@ -18,4 +18,12 @@ namespace Domain
         public List<ReceiptType> ReceiptTpesOffered { get; set; }
     }
 
+    public class UpdateRecieptTypes
+    {
+        public ReceiptType NewReciept { get; set; }
+        public ReceiptType OldReciept { get; set; }
+        public string DistributorId { get; set; }
+
+    }
+
 }

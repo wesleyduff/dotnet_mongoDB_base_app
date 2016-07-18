@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Platform.Client.DataContracts.Offers;
+﻿using Platform.Client.DataContracts;
+using System.Threading.Tasks;
 
 namespace Platform.Client.Mocks
 {

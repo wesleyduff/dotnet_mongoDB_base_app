@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MongoDB.Bson;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace Platform.Client.Interfaces
 {
-    public interface ICrud<T>
+    public interface ICrud<T, K>
     {
-        Task<JObject> Creat(T item);
+        Task<JObject> Create(T item);
         Task<JObject> Delete(string itemId);
         JObject Get();
-        JObject Get(string itemId);
-        Task<JObject> Update(T item);
+        JObject Get(K itemId);
+        Task<JObject> Update(T postUpdate);
 
     }
 }

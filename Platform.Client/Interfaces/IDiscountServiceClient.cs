@@ -1,17 +1,12 @@
 ﻿using Domain;
+using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace Platform.Client.Interfaces
 {
-    public interface IDiscountServiceClient : ICrud<Discount>
+    public interface IDiscountServiceClient : ICrud<Discount, ObjectId>
     {
 
-        /*
-        Task<JObject> CreateDiscount(Discount discount);
-        JObject GetDiscount(string id);
-        JObject GetDiscounts();
-        Task<JObject> DeleteDiscount(string id);
-        */
     }
 }

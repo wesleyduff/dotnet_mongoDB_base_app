@@ -1,7 +1,5 @@
 ﻿using MongoDB.Bson;
-using Platform.Client.DataContracts.Distributor;
 using System.Threading.Tasks;
-using Domain;
 
 namespace Platform.Client.Interfaces
 {

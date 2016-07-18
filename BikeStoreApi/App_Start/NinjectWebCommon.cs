@@ -19,6 +19,7 @@ namespace BikeStoreApi.App_Start
     using WebApiContrib.IoC.Ninject;
     using System.Web.Http;
     using Platform.Client.Services;
+    using Domain;
 
     public static class NinjectWebCommon 
     {
@@ -75,7 +76,6 @@ namespace BikeStoreApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IDistributorsMockServiceClient>().To<MockDistributorsServiceClient>();
             kernel.Bind<IOfferMockServiceClient>().To<MockOffersServiceClient>();
 
             kernel.Bind<IDistributorsServiceClient>().To<DistributorsServiceClient>();
@@ -84,6 +84,7 @@ namespace BikeStoreApi.App_Start
             kernel.Bind<ILineServiceClient>().To<LineServiceClient>();
 
             kernel.Bind<IDiscountComposer>().To<DiscountComposer>();
+            kernel.Bind<IDistributorComposer>().To<DistributorsComposer>();
 
 
         }        

@@ -1,71 +1,124 @@
 ﻿{
-    "id" : "5784570078198e29603fd9ba",
-    "Name" : "sample string 2",
-    "Address" : {
-        "StreetAddress" : "sample string 1",
-        "StreetAddress2" : "sample string 2",
-        "City" : "sample string 3",
-        "State" : "sample string 4",
-        "Country" : "sample string 5",
-        "PostalCode" : "sample string 6"
-    },
-    "Contact" : {
-        "FirstName" : "sample string 1",
-        "LastName" : "sample string 2",
-        "EmailAddress" : "sample string 3",
-        "PhoneNumber" : "sample string 4",
-        "SalesDepartment" : "sample string 5",
-        "IsPrimary" : true,
-        "FullName" : "sample string 7"
-    },
-    "Inventory" : [ 
+  "status": "success",
+  "result": [
+    {
+      "Id": "57887cfe78198e3b7c8d559b",
+      "Name": "Lincold",
+      "Address": {
+        "StreetAddress": "1201 Blackthorn Dr",
+        "StreetAddress2": null,
+        "City": "Pflugerville",
+        "State": "TX-Texas",
+        "Country": "dd",
+        "PostalCode": "78660"
+      },
+      "Contact": {
+        "FirstName": "ddd",
+        "LastName": "ddd",
+        "EmailAddress": "slysop@gmail.com",
+        "PhoneNumber": "5129656835",
+        "FullName": "ddd ddd"
+      },
+      "Inventory": [
         {
-            "id" : "20160711212642680",
-            "Brand" : {
-                "Name" : "sample string 1"
+          "Id": "5788920278199030d82cfc8c",
+          "Bike": {
+            "Id": "5788920278199030d82cfc8d",
+            "Brand": {
+              "Name": "Giant"
             },
-            "Model" : {
-                "Year" : "2016-07-11T20:06:19.5692939-05:00",
-                "Name" : "sample string 2",
-                "Features" : [ 
-                    {
-                        "Title" : "sample string 1",
-                        "Description" : "sample string 2"
-                    }, 
-                    {
-                        "Title" : "sample string 1",
-                        "Description" : "sample string 2"
-                    }
-                ],
-                "Description" : "sample string 3"
+            "Model": {
+              "Year": "2933",
+              "Name": "Mdfj"
             },
-            "Cost" : {
-                "Value" : 1.0
+            "Price": {
+              "Value": 2342
             }
-        }, 
+          },
+          "Quantity": 0
+        },
         {
-            "id" : "20160711212642681",
-            "Brand" : {
-                "Name" : "sample string 1"
+          "Id": "5788935678199030d82cfc96",
+          "Bike": {
+            "Id": "5788935678199030d82cfc97",
+            "Brand": {
+              "Name": "sd"
             },
-            "Model" : {
-                "Year" : "2016-07-11T20:06:09.5692939-05:00",
-                "Name" : "sample string 2",
-                "Features" : [ 
-                    {
-                        "Title" : "sample string 1",
-                        "Description" : "sample string 2"
-                    }, 
-                    {
-                        "Title" : "sample string 1",
-                        "Description" : "sample string 2"
-                    }
-                ],
-                "Description" : "sample string 3"
+            "Model": {
+              "Year": "sd",
+              "Name": "sd"
             },
-            "Cost" : {
-                "Value" : 4521.3
+            "Price": {
+              "Value": 333
             }
+          },
+          "Quantity": 3
         }
-    ]
+      ],
+      "Offers": null,
+      "ReceiptTpesOffered": null
+    },
+    {
+      "Id": "5788938478199030d82cfc98",
+      "Name": "Testy",
+      "Address": {
+        "StreetAddress": "1201 Blackthorn Dr",
+        "StreetAddress2": null,
+        "City": "Pflugerville",
+        "State": "Texas",
+        "Country": "United States",
+        "PostalCode": "78660"
+      },
+      "Contact": {
+        "FirstName": "WEs",
+        "LastName": "Duff",
+        "EmailAddress": "speuides@wesduff.com",
+        "PhoneNumber": "5129656835",
+        "FullName": "WEs Duff"
+      },
+      "Inventory": [
+        {
+          "Id": "5788938f78199030d82cfc99",
+          "Bike": {
+            "Id": "5788938f78199030d82cfc9a",
+            "Brand": {
+              "Name": "sdf"
+            },
+            "Model": {
+              "Year": "sdf",
+              "Name": "sdf"
+            },
+            "Price": {
+              "Value": 2342
+            }
+          },
+          "Quantity": 3
+        },
+        {
+          "Id": "578893a078199030d82cfc9b",
+          "Bike": {
+            "Id": "578893a078199030d82cfc9c",
+            "Brand": {
+              "Name": "sdf"
+            },
+            "Model": {
+              "Year": "sdf",
+              "Name": "sdf"
+            },
+            "Price": {
+              "Value": 234
+            }
+          },
+          "Quantity": 3
+        }
+      ],
+      "Offers": null,
+      "ReceiptTpesOffered": [
+        {
+          "RtypeAsString": "FullHtml",
+          "RType": 1
+        }
+      ]
+    }
+  ]
 }
