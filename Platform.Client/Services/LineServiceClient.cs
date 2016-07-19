@@ -342,17 +342,22 @@ namespace Platform.Client.Services
             double SubtTotal = 0d;
             double TaxRate = .0725d;
             int TotalItems = 0;
+            double BulkDiscount = 0d;
+            double TotalDiscount = 0d;
+            double BeforeDiscount = 0d;
             //loop over each inventory item and add the prices together.
             Inventory.ForEach(delegate (Line line)
             {
                 double thisAmount = 0d;
-                double bulkDiscount = DiscountForHigherQty(line.Quantity);
-                thisAmount += line.Bike.Price.Value * line.Quantity * bulkDiscount;
+                BulkDiscount = DiscountForHigherQty(line.Quantity);
+                BeforeDiscount += line.Bike.Price.Value * line.Quantity;
+                thisAmount += line.Bike.Price.Value * line.Quantity - ((line.Bike.Price.Value * line.Quantity) * BulkDiscount);
                 line.CostForLine = thisAmount.ToString("C");
                 SubtTotal += thisAmount;
-                TotalItems++;
-            });
+                TotalDiscount += (line.Bike.Price.Value * line.Quantity) * BulkDiscount;
+                TotalItems += line.Quantity;
 
+            });
             string SubtotalString = String.Format("Sub-Total: {0}", SubtTotal.ToString("C"));
             string TaxString = String.Format("Tax: {0}", (SubtTotal * TaxRate).ToString("C"));
             string TotalString = String.Format("Total: {0}", (SubtTotal + (SubtTotal * TaxRate)).ToString("C"));
@@ -366,14 +371,17 @@ namespace Platform.Client.Services
                 TotalString = TotalString,
                 status = "success",
                 Company = distributor.Name,
-                TotalItems = TotalItems
+                TotalItems = TotalItems,
+                TotalDiscount = TotalDiscount.ToString("C"),
+                BeforeDiscount = BeforeDiscount.ToString("C")
+
             });
 
         }
 
         private double DiscountForHigherQty(int qty)
         {
-            return (qty * 10 / .05) / 100000;
+            return qty < 25 ? .01 : qty > 25 && qty < 100 ? .02 : qty > 100 ? .04 : 0;
         }
     }
 }

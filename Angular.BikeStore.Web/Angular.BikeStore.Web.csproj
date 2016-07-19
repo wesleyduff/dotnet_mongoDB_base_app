@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Discounts\bundle\discounts-services.js" />
-    <Content Include="app\Distributors\bundle\addInventory-controller.js" />
+    <Content Include="app\Distributors\bundle\inventory-controller.js" />
     <Content Include="app\Distributors\bundle\distributors-controller.js" />
     <Content Include="app\Distributors\bundle\distributors-services.js" />
     <Content Include="app\Distributors\bundle\distributorsCreate-controller.js" />

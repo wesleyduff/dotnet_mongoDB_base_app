@@ -12,20 +12,20 @@ namespace Platform.Client
         {
             if(mognoClient == null)
             {
-                /* Local */
+                /* Local
                 var client = new MongoClient(Settings.Default.mongoLocal);
                 Database = client.GetDatabase(Settings.Default.mongoLocalDb);
-                
+                */
 
                 /* Test 
                 mognoClient = new MongoClient(Settings.Default.mongoLocal);
                 Database = mognoClient.GetDatabase(Settings.Default.mongoLocalTestDb);
                 */
 
-                /* PROD 
+                /* PROD */
                 var client = new MongoClient(Settings.Default.BikeDistributorConnectionString);
                 Database = client.GetDatabase(Settings.Default.BikeDistributorDatabaseName);
-                */
+                
             }
 
         }

@@ -26,13 +26,22 @@
                     <dl><dt>Model</dt><dd>{{product.Bike.Model.Name}}</dd></dl>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                    <dl><dt>Cost of Line</dt><dd>{{product.CostForLine}}</dd></dl>
+                    <dl>
+                        <dt>Cost of Line</dt>
+                        <dd>
+                            {{product.CostForLine}}
+                        </dd>
+                    </dl>
                 </div>
             </li>
         </ul>
         <div class="col-xs-12 text-right ">
             <div class="totals">
                 <strong>Totals</strong>
+                {{ReceiptData.BeforeDiscount}}
+                <br />
+                Discount: -{{ReceiptData.TotalDiscount}}
+                <br />
                 {{ReceiptData.SubtotalString}}
                 <br />
                 {{ReceiptData.TaxString}}

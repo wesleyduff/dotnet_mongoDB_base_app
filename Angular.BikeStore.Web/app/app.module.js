@@ -107,7 +107,7 @@
             resolve: {
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
-                        "./app/Distributors/bundle/addInventory-controller.js",
+                        "./app/Distributors/bundle/inventory-controller.js",
                         "./app/Distributors/Views/addInventoryItem.html"
                         //inventory already called so the file has already been lazy loaded. No need to check
                     ])
@@ -145,7 +145,8 @@
             resolve: {
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
-                        "./app/Distributors/bundle/receipt-controller.js"
+                        "./app/Distributors/bundle/receipt-controller.js",
+                         "./app/Distributors/Views/SummaryHtml.html"
                     ])
                 }]
             }
@@ -154,13 +155,14 @@
             views: {
                 "ReceiptView": {
                     controller: 'receiptCtrl',
-                    templateUrl: "./app/Distributors/Views/FullHtml.html",
+                    templateUrl: "./app/Distributors/Views/FullHtml.html"
                 }
             },
             resolve: {
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
-                        "./app/Distributors/bundle/receipt-controller.js"
+                        "./app/Distributors/bundle/receipt-controller.js",
+                        "./app/Distributors/Views/FullHtml.html"
                     ])
                 }]
             }
@@ -175,7 +177,8 @@
             resolve: {
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
-                        "./app/Distributors/bundle/receipt-controller.js"
+                        "./app/Distributors/bundle/receipt-controller.js",
+                         "./app/Distributors/Views/Text.html"
                     ])
                 }]
             }

@@ -3,8 +3,23 @@
     <div class="thumbnail">
         <div class="visual"><div>{{distributors.length}}</div></div>
         <div class="caption">
-            <h3>TOTAL Discounts</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <h3>TOTAL Distributors</h3>
+            <p>Manage distributors's view:
+                <ul>
+                    <li>
+                        Subscribe to Receipt Types
+                    </li>
+                    <li>
+                        Manage Inventory (price of individuals bikes)
+                    </li>
+                    <li>
+                        Choose Offers to display and add to your Disributor
+                    </li>
+                    <li>
+                        Add / Remove Disributors and Offers for Distributors, 
+                    </li>
+                </ul>
+            </p>
             <p>
                 <a ui-sref="distributors.createDistributor" ng-click="updateUIViewVisibility(true)" ng-class="{'disabled' : disableActionButton}" class="btn btn-primary btn-large" role="button">Add New Distributor</a>
             </p>
@@ -24,7 +39,7 @@
                             Name
                         </th>
                         <th width="15%" class="text-center">
-                            Inventory Count
+                            Inventory Line Count
                         </th>
                         <th width="15%" class="text-center">
                             Receipt Types Count
@@ -111,7 +126,7 @@
                             <br />
                             {{distributorsModalData.Address.StreetAddress2}}
                             <br />
-                            {{distributorsModalData.Address.City}}, {{distributorsModalData.Address.State}} {{distributorsModalData.PostalCode}}
+                            {{distributorsModalData.Address.City}}, {{distributorsModalData.Address.State}} {{distributorsModalData.Address.PostalCode}}
                             <br />
                             {{distributorsModalData.Address.Country}}
                         </address>
@@ -122,9 +137,9 @@
                             <hr />
                             {{distributorsModalData.Contact.FullName}}
                             <br />
-                            {{distributorsModalData.Address.EmailAddress}}
+                            {{distributorsModalData.Contact.EmailAddress}}
                             <br />
-                            {{distributorsModalData.Address.PhoneNumber}}
+                            {{distributorsModalData.Contact.PhoneNumber}}
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -212,7 +227,7 @@
                                         </div><!-- /input-group -->
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteProductFromInventory(distributorsModalData.Id, product.Bike.Id)"></button>
+                                        <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteProductFromInventory(distributorsModalData.Id, product.Bike.Id)" onclick="$('#distributorsModal').modal('hide');"></button>
 
                                     </td>
                                 </tr>

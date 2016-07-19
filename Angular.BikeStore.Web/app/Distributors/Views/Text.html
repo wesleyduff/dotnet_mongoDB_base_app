@@ -20,20 +20,25 @@
                 <ul>
                     <li ng-repeat="product in ReceiptData.Inventory">
                         <dl><dt>Qty</dt><dd>{{product.Quantity}}</dd></dl>
-                        x
+                        x 
                         <dl><dt>Year</dt><dd>{{product.Bike.Model.Year}}</dd></dl>
                         <dl><dt>Brand</dt><dd>{{product.Bike.Brand.Name}}</dd></dl>
                         <dl><dt>Model</dt><dd>{{product.Bike.Model.Name}}</dd></dl>
-                        =
+                        = 
                         <dl><dt>Cost of Line</dt><dd>{{product.CostForLine}}</dd></dl>
                     </li>
                 </ul>
                 <hr/>
-                {{ReceiptData.SubtotalString}}
-                <br />
-                {{ReceiptData.TaxString}}
-                <br />
-                {{ReceiptData.TotalString}}
+                    {{ReceiptData.BeforeDiscount}}
+                    <br />
+                    Discount: -{{ReceiptData.TotalDiscount}}
+                    <br />
+                    {{ReceiptData.SubtotalString}}
+                    <br />
+                    {{ReceiptData.TaxString}}
+                    <br />
+                    {{ReceiptData.TotalString}}
+
             </td>
         </tr>
     </tbody>

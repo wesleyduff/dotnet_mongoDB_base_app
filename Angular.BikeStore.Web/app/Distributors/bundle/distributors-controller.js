@@ -20,7 +20,6 @@
             });
 
             $('#distributorsReceiptModal').on('shown.bs.modal', function () {
-                $state.go('distributors.FullHtml');
             });
 
             $distributorsFactory.getReceiptTypes().then(function (response) {
@@ -31,6 +30,7 @@
             });
 
         })();
+
         $scope.updateUIViewVisibility = function (state) {
             
             if (!state) {
@@ -48,7 +48,7 @@
             $distributorsFactory.updateReceiptList(postData).then(function (response) {
                 if (response.status === "success") {
                     $scope.receiptTypesOffered.selectedOptions = response.result;
-                    refreshDistributors();
+                    hardUpdateDistributorsCollection();
                 }
             });
         }
@@ -57,9 +57,7 @@
             var stateHook = 'distributors.' + selectedValue.RtypeAsString;
             $state.go(stateHook);
         }
-
         $scope.GetDistributor = function (distributorId) {
-           
             $distributorsFactory.getDistributor(distributorId).then(function (response) {
                 if (response.status === "success") {
                     $scope.distributorsModalData = response.result;
@@ -67,6 +65,8 @@
                         availableOptions: receiptTypes,
                         selectedOptions: response.result.ReceiptTypesOffered
                     }
+                    var stateHook = 'distributors.' + response.result.ReceiptTypesOffered[0].RtypeAsString;
+                    $state.go(stateHook);
                     $scope.receiptTypesOfferedSingle = {
                         availableOptions: response.result.ReceiptTypesOffered,
                         selectedOption: response.result.ReceiptTypesOffered[0]
@@ -109,14 +109,7 @@
         }
 
 
-        $scope.deleteProductFromInventory = function (distributorId, bikeId) {
-            $distributorsFactory.deleteProductFromInventory(distributorId, bikeId).then(function (response) {
-                if (response.status === "success") {
-                    $scope.distributorsModalData.Inventory = response.result;
-                }
-            })
-        }
-
+       
         $scope.RemoveOfferFromDistributor = function (distributorId, offerId) {
             $distributorsFactory.RemoveOfferFromDistributor(distributorId, offerId).then(function (response) {
                 if (response.status === "success") {
@@ -127,24 +120,23 @@
             });
         }
 
+        $scope.deleteProductFromInventory = function (distributorId, bikeId) {
+            $distributorsFactory.deleteProductFromInventory(distributorId, bikeId).then(function (response) {
+                if (response.status === "success") {
+                    hardUpdateDistributorsCollection();
+                }
+            })
+        }
 
         /* EVENT HANDLERS FROM OTHER CONTROLLERS */
         $scope.$on('inventoryUpdate', function () {
             $scope.disableActionButton = false;
+            hardUpdateDistributorsCollection();
         });
 
         $scope.$on('updateDistributors', function () {
             hardUpdateDistributorsCollection();
         });
-       
-
-        function refreshDistributors() {
-            $distributorsFactory.get().then(function (response) {
-                if (response.status === "success") {
-                    $scope.distributors = response.result;
-                }
-            });
-        }
 
         function hardUpdateDistributorsCollection() {
             $distributorsFactory.get().then(function (response) {

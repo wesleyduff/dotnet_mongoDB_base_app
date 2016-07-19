@@ -17,7 +17,9 @@
                         TotalString: response.TotalString,
                         Inventory : response.Inventory,
                         Company: response.Company,
-                        TotalItems: response.TotalItems
+                        TotalItems: response.TotalItems,
+                        TotalDiscount: response.TotalDiscount,
+                        BeforeDiscount: response.BeforeDiscount
                     }
                 }
             });
