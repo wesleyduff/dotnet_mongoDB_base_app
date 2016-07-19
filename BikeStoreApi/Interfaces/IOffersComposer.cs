@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,14 @@ namespace BikeStoreApi.Interfaces
 {
     public interface IOffersComposer
     {
-        string GetListOfOffersForDistributor(string distributorId);
-        Task<string> AddOfferToDistributor(string distributorId, string offerId);
-        Task<string> CreateOffer(Offers offer);
-        Task<string> DeleteOffer(string id);
-        Task<string> RemoveDiscountFromOffer(string offerId, string discountId);
-        List<Offers> GetOffers(string distributorId);
-        string GetOffer(string id);
-        Task<string> AddDiscountToOffer(string offerId, string discountId);
+        JObject GetOffersForDistributor(string distributorId);
+        JObject GetOffer(string offerId);
+        JObject GetOffers();
+        Task<JObject> CreateOffer(Offers offer);
+        Task<JObject> DeleteOffer(string id);
+        Task<JObject> AddOfferToDistributor(string distributorId, string offerId);
+        Task<JObject> AddDiscountToOffer(string offerId, Discount discount);
+        Task<JObject> RemoveDiscountFromOffer(string offerId, string discountId);
+        Task<JObject> RemoveOfferFromDistributor(string distributorId, string offerId);
     }
 }

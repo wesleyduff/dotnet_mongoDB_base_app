@@ -1,0 +1,44 @@
+﻿<div class="panel panel-default">
+   
+    <div id="offer">
+
+
+                <!-- START : DISTRIBUTOR DISPLAY -->
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Add Offer</div>
+                        <div class="panel-body">
+                            <p>Full view of the distributor currently being created</p>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Offer</th>
+                                    <th>Discounts</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="offer in offers">
+                                    <td>
+                                        {{offer.Title}}
+                                    </td>
+                                    <td>
+                                        <div class="list-group">
+                                            <div ng-repeat="discount in offer.Discounts" href="#" ng-class="{'active' : $index == 0}" class="list-group-item">
+                                                <h4 class="list-group-item-heading">{{discount.Title}}</h4>
+                                                <p class="list-group-item-text">{{discount.Description}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="AddOfferToDistributor(distributorsModalData.Id, offer.Id)"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <!-- END : Distributor Display -->
+
+         </div><!-- END : #offer -->
+</div><!-- END : panel -->

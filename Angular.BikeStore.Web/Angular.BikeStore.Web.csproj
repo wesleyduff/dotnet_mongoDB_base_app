@@ -92,11 +92,17 @@
     <Content Include="app\Distributors\bundle\distributors-controller.js" />
     <Content Include="app\Distributors\bundle\distributors-services.js" />
     <Content Include="app\Distributors\bundle\distributorsCreate-controller.js" />
+    <Content Include="app\Distributors\bundle\receipt-controller.js" />
+    <Content Include="app\Offers\Views\addOfferItem.html" />
+    <Content Include="app\Distributors\Views\Text.html" />
+    <Content Include="app\Distributors\Views\inventory.html" />
     <Content Include="app\Distributors\Views\addInventoryItem.html" />
     <Content Include="app\Distributors\Views\createDistributor.html" />
     <Content Include="app\Distributors\Views\index.html" />
     <Content Include="app\Discounts\bundle\discounts-controller.js" />
     <Content Include="app\Discounts\Views\index.html" />
+    <Content Include="app\Distributors\Views\FullHtml.html" />
+    <Content Include="app\Distributors\Views\SummaryHtml.html" />
     <Content Include="app\Offers\bundle\offers-services.js" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-resource.js" />

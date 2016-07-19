@@ -15,7 +15,7 @@ namespace Domain
         public List<Line> Inventory { get; set; }
         //List of offers by ID
         public List<Offers> Offers { get; set; }
-        public List<ReceiptType> ReceiptTpesOffered { get; set; }
+        public List<ReceiptType> ReceiptTypesOffered { get; set; }
     }
 
     public class UpdateRecieptTypes
@@ -24,6 +24,12 @@ namespace Domain
         public ReceiptType OldReciept { get; set; }
         public string DistributorId { get; set; }
 
+    }
+
+    public class UdateReceiptList
+    {
+       public  List<ReceiptType> ReceiptList { get; set; }
+        public string DistributorId { get; set; }
     }
 
 }

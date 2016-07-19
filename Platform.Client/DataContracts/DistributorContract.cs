@@ -20,6 +20,6 @@ namespace Platform.Client.DataContracts
         //List of offers by ID
         [JsonProperty("")]
         public List<OffersDataContract> Offers { get; set; }
-        public List<ReceiptTypeDataContract> ReceiptTpesOffered { get; set; }
+        public List<ReceiptTypeDataContract> ReceiptTypesOffered { get; set; }
     }
 }

@@ -6,21 +6,32 @@ namespace Platform.Client
 {
     public class BaseModel
     {
-        public IMongoDatabase Database;
+        public readonly IMongoDatabase Database;
+        private readonly MongoClient mognoClient;
         public BaseModel()
         {
-            /* Local */
-            var client = new MongoClient(Settings.Default.mongoLocal);
-            Database = client.GetDatabase(Settings.Default.mongoLocalDb);
-            
+            if(mognoClient == null)
+            {
+                /* Local */
+                var client = new MongoClient(Settings.Default.mongoLocal);
+                Database = client.GetDatabase(Settings.Default.mongoLocalDb);
+                
 
-            /* PROD 
-            var client = new MongoClient(Settings.Default.BikeDistributorConnectionString);
-            Database = client.GetDatabase(Settings.Default.BikeDistributorDatabaseName);
-            */
+                /* Test 
+                mognoClient = new MongoClient(Settings.Default.mongoLocal);
+                Database = mognoClient.GetDatabase(Settings.Default.mongoLocalTestDb);
+                */
+
+                /* PROD 
+                var client = new MongoClient(Settings.Default.BikeDistributorConnectionString);
+                Database = client.GetDatabase(Settings.Default.BikeDistributorDatabaseName);
+                */
+            }
+
         }
 
-        public IMongoCollection<Distributor> DistributorsCollection {
+        public IMongoCollection<Distributor> DistributorsCollection
+        {
             get
             {
                 return Database.GetCollection<Distributor>("distributors");
@@ -50,5 +61,6 @@ namespace Platform.Client
                 return Database.GetCollection<Line>("Lines");
             }
         }
+
     }
 }

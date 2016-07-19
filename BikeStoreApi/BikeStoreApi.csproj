@@ -217,7 +217,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\MongoDbRegistration.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -252,6 +251,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Composers\DiscountComposer.cs" />
     <Compile Include="Composers\DistributorsComposer.cs" />
+    <Compile Include="Composers\InventoryComposer.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Interfaces\IDiscountComposer.cs" />
@@ -265,6 +265,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDistributorComposer.cs" />
+    <Compile Include="Interfaces\IInventoryComposer.cs" />
     <Compile Include="Interfaces\IOffersComposer.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

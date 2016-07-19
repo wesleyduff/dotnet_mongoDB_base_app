@@ -1,39 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using BikeStoreApi.Composers;
+﻿using System.Web.Http;
 using Domain;
-using MongoDB.Bson;
 using System.Threading.Tasks;
-using BikeStoreApi.Interfaces;
-using System.Web.Http.Cors;
 using Platform.Client.Interfaces;
 using Newtonsoft.Json.Linq;
+using BikeStoreApi.Interfaces;
 
 namespace BikeStoreApi.Controllers
 {
     public class OffersController : ApiController
     {
         private readonly IOfferServiceClient _offerServiceClient;
+        private readonly IOffersComposer _offerComposer;
      
-        public OffersController(IOfferServiceClient offerServiceClient)
+        public OffersController(IOffersComposer offerComposer)
         {
-            _offerServiceClient = offerServiceClient;
+            _offerComposer = offerComposer;
         }
 
         [Route("api/Distributor/{id}/Offers")]
         [HttpGet]
-        public IHttpActionResult GetOffersForDistributor(string id)
+        public JObject GetOffersForDistributor(string id)
         {
-            return Ok(_offerServiceClient.GetOffersForDistributor(id));
+            return _offerComposer.GetOffersForDistributor(id);
         }
 
-        public IHttpActionResult Get()
+        public JObject Get()
         {
-            return Ok(_offerServiceClient.GetOffers());
+            return _offerComposer.GetOffers();
         }
 
         /* 
@@ -42,42 +35,49 @@ namespace BikeStoreApi.Controllers
         [HttpPost]
         public async Task<JObject> create(Offers offer)
         {
-            return await _offerServiceClient.CreateOffer(offer);
+            return await _offerComposer.CreateOffer(offer);
         }
 
         public async Task<JObject> delete(string id)
         {
-            return await _offerServiceClient.DeleteOffer(id);
+            return await _offerComposer.DeleteOffer(id);
         }
 
 
-        public IHttpActionResult Get(string offerId)
+        public JObject Get(string offerId)
         {
-            return Ok(_offerServiceClient.GetOffer(offerId));
+            return _offerComposer.GetOffer(offerId);
         }
 
         [Route("api/Offers/{offerId}/AddDiscount/{discountId}")]
         [HttpGet]
         public async Task<JObject> AddDiscountToOffer(string offerId, Discount discount)
         {
-            return await _offerServiceClient.AddDiscountToOffer(offerId, discount);
+            return await _offerComposer.AddDiscountToOffer(offerId, discount);
         }
         /**
         Remove Discount from Offer
         */
         [Route("api/Offers/{offerId}/RemoveOffer/{discountId}")]
         [HttpGet]
-        public IHttpActionResult RemoveDiscountFromOffer(string offerId, string discountId)
+        public async Task<JObject> RemoveDiscountFromOffer(string offerId, string discountId)
         {
-            return Ok(_offerServiceClient.RemoveDiscountFromOffer(offerId, discountId));
+            return await _offerComposer.RemoveDiscountFromOffer(offerId, discountId);
         }
 
 
         [Route("api/Distributor/{distributorId}/AddOffer/{offerId}")]
         [HttpGet]
-        public IHttpActionResult AddOfferToDistributor(string distributorId, Offers offer)
+        public async Task<JObject> AddOfferToDistributor(string distributorId, string offerId)
         {
-            return Ok(_offerServiceClient.AddOfferToDistributor(distributorId, offer));
+            return await _offerComposer.AddOfferToDistributor(distributorId, offerId);
+        }
+
+        [Route("api/Distributor/{distributorId}/RemoveOffer/{offerId}")]
+        [HttpGet]
+        public async Task<JObject> RemoveOfferToDistributor(string distributorId, string offerId)
+        {
+            return await _offerComposer.RemoveOfferFromDistributor(distributorId, offerId);
         }
 
     }

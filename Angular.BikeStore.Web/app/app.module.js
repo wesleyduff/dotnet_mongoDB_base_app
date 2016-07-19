@@ -7,17 +7,7 @@
         APISERVERPATH: 'http://localhost:26639'
     })
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
-      
-        //Setting up for CORS
-        /*
-             
-  $httpProvider.defaults.useXDomain = true;
-        $httpProvider.defaults.headers.common["X-Requested-With"];
-        $httpProvider.defaults.headers.common["Accept"] = "application/json";
-        $httpProvider.defaults.headers.common["Content-Type"] = "application/json"       
-        */
-
-
+     
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/Home");
         // Now set up the states
@@ -85,7 +75,8 @@
                 loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         './app/Distributors/bundle/distributors-controller.js',
-                        './app/Distributors/bundle/distributors-services.js'
+                        './app/Distributors/bundle/distributors-services.js',
+                        './app/Distributors/Views/inventory.html'
                     ])
                 }]
             }
@@ -118,6 +109,73 @@
                     return $ocLazyLoad.load([
                         "./app/Distributors/bundle/addInventory-controller.js",
                         "./app/Distributors/Views/addInventoryItem.html"
+                        //inventory already called so the file has already been lazy loaded. No need to check
+                    ])
+                }]
+            }
+        })
+        .state('distributors.addOfferToDistributor', {
+            views: {
+                "EditCreateView": {
+                    controller: 'OffersCtrl',
+                    templateUrl: "./app/Offers/Views/addOfferItem.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Offers/bundle/offers-controller.js",
+                        "./app/Offers/bundle/offers-services.js",
+                        './app/Discounts/bundle/discounts-services.js',
+                        "./app/Offers/Views/addOfferItem.html"
+                    ])
+                }]
+            }
+        })
+        /*
+        Receipt Views 
+        */
+        .state('distributors.SummaryHtml', {
+            views: {
+                "ReceiptView": {
+                    controller: 'receiptCtrl',
+                    templateUrl: "./app/Distributors/Views/SummaryHtml.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Distributors/bundle/receipt-controller.js"
+                    ])
+                }]
+            }
+        })
+        .state('distributors.FullHtml', {
+            views: {
+                "ReceiptView": {
+                    controller: 'receiptCtrl',
+                    templateUrl: "./app/Distributors/Views/FullHtml.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Distributors/bundle/receipt-controller.js"
+                    ])
+                }]
+            }
+        })
+        .state('distributors.Text', {
+            views: {
+                "ReceiptView": {
+                    controller: 'receiptCtrl',
+                    templateUrl: "./app/Distributors/Views/Text.html",
+                }
+            },
+            resolve: {
+                loadMainCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        "./app/Distributors/bundle/receipt-controller.js"
                     ])
                 }]
             }

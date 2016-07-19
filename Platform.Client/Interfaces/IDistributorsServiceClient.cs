@@ -9,5 +9,7 @@ namespace Platform.Client.Interfaces
     {
         Task<JObject> AddOfferToDistributer(string distributorId, Offers offer);
         Task<JObject> UpdateRecieptTypes(UpdateRecieptTypes postUpdate);
+        JObject GetReceiptTypes();
+        Task<JObject> UpdateRecieptList(string distributorId, UdateReceiptList postData);
     }
 }

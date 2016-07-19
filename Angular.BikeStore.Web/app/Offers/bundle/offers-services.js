@@ -5,27 +5,54 @@
     angular.module('app')
 
     .factory('$offersFactory', ['$resource', '$q', 'APPSETTINGS', function ($resource, $q, APPSETTINGS) {
-        var resource = $resource(APPSETTINGS.APISERVERPATH + '/api/Offers/:discountId',
+        var resourceDiscount = $resource(APPSETTINGS.APISERVERPATH + '/api/Offers/:discountId',
              {
-                 discountId: '@id'
+                 discountId: '@discountId',
+                 offerId: '@offerId',
+                 distributorId: '@distributorId'
              },
              {
              }
          );
+        var resourceOffer = $resource(APPSETTINGS.APISERVERPATH + '/api/Offers/:offerId',
+             {
+                 discountId: '@discountId',
+                 offerId: '@offerId',
+                 distributorId: '@distributorId'
+             },
+             {
+                 addOfferToDistributor: {
+                     method: 'GET',
+                     url: APPSETTINGS.APISERVERPATH + '/api/Distributor/:distributorId/AddOffer/:offerId'
+                 }
+             }
+         );
 
         return {
+           
+            addOfferToDistributor: function(distributorId, offerId){
+                var deferred = $q.defer();
+                var postData = {
+                    distributorId: distributorId,
+                    offerId: offerId
+                };
+                resourceOffer.addOfferToDistributor(postData, function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            },
             get: function () {
                 var deferred = $q.defer();
-                resource.get({}, function (data) {
+                resourceOffer.get({}, function (data) {
                     deferred.resolve(data);
                 });
 
                 return deferred.promise;
             },
-            delete: function (Id) {
+            delete: function (offerId) {
                 var deferred = $q.defer();
-                resource.delete({
-                    id: Id
+                resourceOffer.delete({
+                    offerId: offerId
                 }, function (data) {
                     deferred.resolve(data);
                 });
@@ -38,8 +65,7 @@
                     Discounts : postData.selectedOptions
                 }
                 var deferred = $q.defer();
-                resource.save(offer, function (data) {
-                    data.result = offer;
+                resourceOffer.save(offer, function (data) {
                     deferred.resolve(data);
                 });
 

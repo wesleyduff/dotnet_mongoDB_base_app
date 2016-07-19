@@ -5,14 +5,35 @@
     angular.module('app')
 
     .factory('$distributorsFactory', ['$resource', '$q', 'APPSETTINGS', function ($resource, $q, APPSETTINGS) {
-        var distributorResource = $resource(APPSETTINGS.APISERVERPATH + '/api/Distributor/:distributorId',
+        var distributorResource = $resource(APPSETTINGS.APISERVERPATH + '/api/Distributor/',
              {
-                 distributorId: '@distributorId'
+                 distributorId: '@distributorId',
+                 offerId: '@offerId'
              },
              {
                  getDistributor: {
                      method: 'GET',
                      distributorId: '@distributorId'
+                 },
+                 deleteDistributor: {
+                     method: 'DELETE',
+                     distributorId: '@distributorId'
+                 },
+                 getReceiptTypes: {
+                     method: 'GET',
+                     url: APPSETTINGS.APISERVERPATH + '/api/ReceiptTypes'
+                 },
+                 updateReceiptList : {
+                     method: 'POST',
+                     url: APPSETTINGS.APISERVERPATH + '/api/Distributor/UpdateRecieptList'
+                 },
+                 getReceiptData: {
+                     method: 'GET',
+                     url: APPSETTINGS.APISERVERPATH + '/api/Receipt'
+                 },
+                 removeOfferFromDistributor: {
+                     method: 'GET',
+                     url: APPSETTINGS.APISERVERPATH + '/api/Distributor/:distributorId/RemoveOffer/:offerId'
                  }
              }
          );
@@ -38,6 +59,52 @@
          );
 
         return {
+            RemoveOfferFromDistributor: function (distributorId, offerId) {
+                var deferred = $q.defer();
+                var postData = {
+                    distributorId: distributorId,
+                    offerId: offerId
+                };
+                distributorResource.removeOfferFromDistributor(postData, function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            },
+            getReceiptData: function(distributorId){
+                var deferred = $q.defer();
+                distributorResource.getReceiptData({ distributorId: distributorId }, function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
+            updateReceiptList: function(postData){
+                var deferred = $q.defer();
+                distributorResource.updateReceiptList(postData, function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
+            getReceiptTypes: function(){
+                var deferred = $q.defer();
+                distributorResource.getReceiptTypes({}, function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
+            deleteDistributor: function (distributorId) {
+                var deferred = $q.defer();
+                var deleteData = {
+                    distributorsId: distributorId
+                }
+                distributorResource.deleteDistributor(deleteData, function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            },
             deleteProductFromInventory: function (distributorsId, bikeId) {
                 var deferred = $q.defer();
                 var postData = {

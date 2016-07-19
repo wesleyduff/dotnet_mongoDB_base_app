@@ -216,16 +216,32 @@ namespace Platform.Client.Services
 
         public async Task<JObject> AdjustPrice(Bike.AdjustPrice adjustPrice)
         {
-            string distributorId = ObjectId.Parse(adjustPrice.DistributorId).ToString();
-            string bikeId = ObjectId.Parse(adjustPrice.BikeId).ToString();
-            List<Line> inventory = ReturnInventoryForDistributor(distributorId);
-            //find the correct bike to adjust price
-            foreach (var line in inventory.Where(line => line.Bike.Id == bikeId))
+            try
             {
-                line.Bike.Price = adjustPrice.NewPrice;
-            }
+                string distributorId = ObjectId.Parse(adjustPrice.DistributorId).ToString();
+                string bikeId = ObjectId.Parse(adjustPrice.BikeId).ToString();
+                List<Line> inventory = ReturnInventoryForDistributor(distributorId);
+                //find the correct bike to adjust price
+                foreach (var line in inventory.Where(line => line.Bike.Id == bikeId))
+                {
+                    line.Bike.Price = adjustPrice.NewPrice;
+                }
 
-            return await this.UpdateInventoryList(adjustPrice.DistributorId, inventory);
+                return await this.UpdateInventoryList(adjustPrice.DistributorId, inventory);
+            }
+            catch (Exception ex)
+            {
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
+            }
+         
 
         }
 
@@ -317,6 +333,47 @@ namespace Platform.Client.Services
                      message = ex.Message
                  });
             }
+        }
+
+        public JObject GetReceiptData(string distributorId)
+        {
+            Distributor distributor = GetDistributorById(distributorId);
+            List<Line> Inventory = distributor.Inventory;
+            double SubtTotal = 0d;
+            double TaxRate = .0725d;
+            int TotalItems = 0;
+            //loop over each inventory item and add the prices together.
+            Inventory.ForEach(delegate (Line line)
+            {
+                double thisAmount = 0d;
+                double bulkDiscount = DiscountForHigherQty(line.Quantity);
+                thisAmount += line.Bike.Price.Value * line.Quantity * bulkDiscount;
+                line.CostForLine = thisAmount.ToString("C");
+                SubtTotal += thisAmount;
+                TotalItems++;
+            });
+
+            string SubtotalString = String.Format("Sub-Total: {0}", SubtTotal.ToString("C"));
+            string TaxString = String.Format("Tax: {0}", (SubtTotal * TaxRate).ToString("C"));
+            string TotalString = String.Format("Total: {0}", (SubtTotal + (SubtTotal * TaxRate)).ToString("C"));
+
+
+            return JObject.FromObject(new
+            {
+                Inventory = Inventory,
+                SubtotalString = SubtotalString,
+                TaxString = TaxString,
+                TotalString = TotalString,
+                status = "success",
+                Company = distributor.Name,
+                TotalItems = TotalItems
+            });
+
+        }
+
+        private double DiscountForHigherQty(int qty)
+        {
+            return (qty * 10 / .05) / 100000;
         }
     }
 }

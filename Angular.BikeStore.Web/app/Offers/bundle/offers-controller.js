@@ -25,6 +25,17 @@
 
         })();
 
+        $scope.AddOfferToDistributor = function(distributorId, offerId){
+            $offersFactory.addOfferToDistributor(distributorId, offerId).then(function (response) {
+                if (response.status === "success") {
+                    //from parent controller - distributors controller
+                    $scope.updateUIViewVisibility(false);
+                    //Call private method on Distributor controller - through events
+                    $scope.$emit('updateDistributors');
+                }
+            });
+        }
+
         $scope.AddOffer = function (postOffer) {
             $offersFactory.create(postOffer).then(function (response) {
                 if (response.status === "success") {

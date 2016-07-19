@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Domain;
 using Newtonsoft.Json.Linq;
 using BikeStoreApi.Interfaces;
-using MongoDB.Bson;
 using Platform.Client.Interfaces;
+using MongoDB.Bson;
 
 namespace BikeStoreApi.Composers
 {
@@ -50,6 +50,16 @@ namespace BikeStoreApi.Composers
         public Task<JObject> UpdateRecieptTypes(UpdateRecieptTypes postUpdate)
         {
             return _distributorsServiceClient.UpdateRecieptTypes(postUpdate);
+        }
+
+        public Task<JObject> UpdateRecieptList(string distributorId, UdateReceiptList postData)
+        {
+            return _distributorsServiceClient.UpdateRecieptList(distributorId, postData);
+        }
+
+        public JObject GetReceiptTypes()
+        {
+            return _distributorsServiceClient.GetReceiptTypes();
         }
     }
 }

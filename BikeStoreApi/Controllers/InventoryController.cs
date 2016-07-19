@@ -1,12 +1,6 @@
 ﻿using Domain;
-using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 using Platform.Client.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -40,7 +34,14 @@ namespace BikeStoreApi.Controllers
         {
             return await _lineServiceClient.DeleteLineFromDistributor(distributorId, bikeId);
         }
-        
+
+        [Route("api/Receipt")]
+        [HttpGet]
+        public JObject GetReceiptData(string distributorId)
+        {
+            return _lineServiceClient.GetReceiptData(distributorId);
+        }
+
 
 
         public IHttpActionResult Update(UpdateLine postUpdateLine)

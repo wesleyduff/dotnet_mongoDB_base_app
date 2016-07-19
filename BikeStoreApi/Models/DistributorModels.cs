@@ -11,7 +11,7 @@ namespace BikeStoreApi.Models
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public List<Offers> Offers { get; set; }
-        public List<ReceiptType> ReceiptTpesOffered { get; set; }
+        public List<ReceiptType> ReceiptTypesOffered { get; set; }
         public List<BikeModels> Inventory { get; set; }
         
     }

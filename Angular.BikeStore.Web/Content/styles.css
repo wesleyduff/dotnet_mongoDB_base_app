@@ -90,6 +90,21 @@ textarea {
     font-size: 1.5em;
 }
 
+select {
+    font-size: 2em;
+}
+
+li {
+    list-style:none;
+}
+
+td.actions button:not(:last-child) {
+    margin-bottom:5px;
+}
+td.actions button {
+    margin-left:7px;
+}
+
 /* ------------------------------------ LIST GROUP*/
 .list-group {
     margin:10px;
@@ -110,37 +125,10 @@ textarea {
     padding:12px;
 }
 
-.modal-body .badge {
-    position: absolute;
-    top: 10%;
-    left: 6%;
-    width: 75px;
-    height: 75px;
-    border-radius: 35px;
-    font-size: 3em;
-    padding: 14px;
-    background-color: #6d55b9;
-}
-
-    .modal-body .badge div {
-        margin: 0 auto;
-    }
-
-    .modal-body .badge span {
-        font-size: .3em;
-        position: relative;
-        top: -65px;
-    }
-
     .modal-body .price {
-        font-size: 2.7em;
+        font-size: 2em;
         font-weight: bold;
-        position: absolute;
-        top: 16px;
-        right: 37px;
         color: #6d55b9;
-        width: 250px;
-        text-align: right;
     }
 
     .modal-body .price span {
@@ -152,18 +140,60 @@ textarea {
         margin-top: -10px;
     }
 
+    .modal-body .list-group {
+        font-size:1.4em;
+    }
+
+    .modal-body li.separate {
+        border-bottom: 1px solid gray;
+        margin-bottom:10px;
+    }
+
+
+    .modal-body li > div::before {
+        background-color: #dce6e5;
+        color: #65AFA3;
+        content: ".";
+    }
+
+    .modal-body dl {
+        display:inline-block;
+    }
+     .modal-body dt {
+         font-size:.8em;
+     }
+     .model-body dd:last-child{
+         text-align:right;
+     }
+        
+
 .panel-body div:not(.input-group) > .form-control {
     margin:3px;
 }
-.panel-body .thumbnail{
-    min-height: 300px;
+    .panel-body .thumbnail{
+        min-height: 300px;
+    }
+        .panel-body .thumbnail.small {
+            min-height: inherit;
+        }
+        .panel-body .thumbnail::after {
+            content: ".";
+            clear : both;
+            height:1px;
+            visibility: hidden;
+        }
+.totals {
+    background-color:#F0F0F0;
+    padding:10px;
+    border-top-left-radius:20px;
+    margin-top:10px;
 }
-.panel-body .thumbnail.small {
-    min-height: inherit;
-}
-.panel-body .thumbnail::after {
-    content: ".";
-    clear : both;
-    height:1px;
-    visibility: hidden;
-}
+    .totals strong {
+        background-color:#ddd;
+        color:white;
+        border-radius: 0px;
+        border-bottom:1px solid gray;
+        margin-bottom:15px;
+        box-shadow:#d4d4d4 68px 10px inset;
+        border-top-left-radius:20px;
+    }

@@ -1,0 +1,48 @@
+﻿<table class="table table-bordered table-hover table-sortable" id="tab_logic">
+    <thead>
+        <tr>
+            <th class="text-center">
+                Qty
+            </th>
+            <th class="text-center">
+                Year
+            </th>
+            <th class="text-center">
+                Brand
+            </th>
+            <th class="text-center">
+                Model
+            </th>
+            <th class="text-center">
+                Price
+            </th>
+            <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="product in distributorsModalData.Inventory" data-row="display">
+            <td>
+                {{product.Quantity}}
+            </td>
+            <td>
+                {{product.Bike.Model.Year}}
+            </td>
+            <td>
+                {{product.Bike.Brand.Name}}
+            </td>
+            <td>
+                {{product.Bike.Price.Value}}
+            </td>
+            <td data-name="del">
+                <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteProductFromInventory(distributorsModalData.Id, product.Bike.Id)"></button>
+            </td>
+        </tr>
+        <tr>
+           <td colspan="5">
+               <button ui-sref="distributors.addItemToInventory" ng-click="updateUIViewVisibility(true);" onclick="$('#distributorsModal').modal('hide');" class="btn btn-primary btn-large">Add Inventory Item</button>
+           </td>
+        </tr>
+    </tbody>
+</table>
+                    

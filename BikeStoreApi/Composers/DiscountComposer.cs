@@ -4,7 +4,6 @@ using BikeStoreApi.Interfaces;
 using Newtonsoft.Json.Linq;
 using Domain;
 using Platform.Client.Interfaces;
-using Platform.Client.Services;
 using MongoDB.Bson;
 
 namespace BikeStoreApi.Composers

@@ -18,6 +18,19 @@ namespace Platform.Client.Services
         {
             try
             {
+                if(item.Offers == null)
+                {
+                    item.Offers = new List<Offers>() { };
+                }
+                if(item.ReceiptTypesOffered == null)
+                {
+                    item.ReceiptTypesOffered = new List<ReceiptType>() { };
+                }
+                if (item.Inventory == null)
+                {
+                    item.Inventory = new List<Line>() { };
+                }
+
                 await DistributorsCollection.InsertOneAsync(item);
 
                 return
@@ -77,6 +90,24 @@ namespace Platform.Client.Services
            
         }
 
+        public JObject GetReceiptTypes()
+        {
+               
+            return
+                JObject.FromObject(
+                new
+                {
+                    status = "success",
+                    result = new List<ReceiptType>()
+                    {
+                       new ReceiptType() {RType = ReceiptType.RTypes.FullHtml, RtypeAsString = ReceiptType.RTypes.FullHtml.ToString() },
+                       new ReceiptType() {RType = ReceiptType.RTypes.SummaryHtml, RtypeAsString = ReceiptType.RTypes.SummaryHtml.ToString() },
+                       new ReceiptType() {RType = ReceiptType.RTypes.Text, RtypeAsString = ReceiptType.RTypes.Text.ToString() }
+                    }
+                }
+            );
+           
+        }
         public JObject Get()
         {
             try
@@ -105,15 +136,78 @@ namespace Platform.Client.Services
             }
           
         }
-        
-        public Task<JObject> Delete(string itemId)
+
+        public async Task<JObject> Delete(string itemId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(itemId));
+
+                DeleteResult result = await DistributorsCollection.DeleteOneAsync(filter);
+
+                if (result.IsAcknowledged)
+                {
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "success",
+                                result = true,
+                                message = "Distributor was deleted"
+                            }
+                        );
+                }
+                else
+                {
+                    return
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "false",
+                                result = false,
+                                message = "Distributor could not be deleted"
+                            }
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            }
         }
 
         public Task<JObject> Update(Distributor postUpdate)
         {
             throw new NotImplementedException();
+        }
+
+
+        public async Task<JObject> UpdateRecieptList(string distributorId, UdateReceiptList postData)
+        {
+            try
+            {
+                return await UpdateDistributor(postData.DistributorId, postData.ReceiptList);
+            }
+            catch (Exception ex)
+            {
+                return
+                    JObject.FromObject(
+                    new
+                    {
+                        status = "Exception Thrown",
+                        result = false,
+                        message = ex.Message
+                    }
+                );
+            };
         }
 
         public async Task<JObject> UpdateRecieptTypes(UpdateRecieptTypes postUpdate)
@@ -122,7 +216,7 @@ namespace Platform.Client.Services
             {
                 //Get receipt types
                 var distributor = GetDistributorById(postUpdate.DistributorId);
-                var recieptTypes = distributor.ReceiptTpesOffered;
+                var recieptTypes = distributor.ReceiptTypesOffered;
 
 
                 bool newReceiptfound = false;
@@ -130,9 +224,8 @@ namespace Platform.Client.Services
 
                 if (recieptTypes != null)
                 {
-                    distributor.ReceiptTpesOffered.ForEach(delegate (ReceiptType recieptType)
+                    distributor.ReceiptTypesOffered.ForEach(delegate (ReceiptType recieptType)
                     {
-                        var newReceiptType = postUpdate.NewReciept.RType;
 
                         if (postUpdate.NewReciept != null && postUpdate.NewReciept.RtypeAsString.Equals(recieptType.RtypeAsString))
                         {
@@ -178,7 +271,7 @@ namespace Platform.Client.Services
                                   {
                                       status = "false",
                                       result = false,
-                                      message = "Could not update inventory. Line item in inventory not found."
+                                      message = "Could not update Receipt Types."
                                   }
                               );
                 }
@@ -215,7 +308,7 @@ namespace Platform.Client.Services
                                {
                                    status = "success",
                                    result = recieptTypes,
-                                   message = "Inventory Updated"
+                                   message = "Distributor's Receipt Types Updated"
                                }
                            );
                 }

@@ -1,0 +1,47 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <h1>{{ReceiptData.Title}}</h1>
+    </div>
+    <div class="col-xs-12">
+        <h3>{{ReceiptData.TotalItems}} Items : <strong class="price">{{ReceiptData.TotalString}}</strong></h3>
+        <hr />
+    </div>
+
+
+    <aside class="col-xs-3">
+        <h2>Order Receipt for {{ReceiptData.Company}}</h2>
+    </aside>
+    <section class="col-xs-9">
+        <ul class="list-group">
+            <li ng-repeat="product in ReceiptData.Inventory" class="row separate">
+                <div class="col-xs-12 col-md-3">
+                    <dl><dt>Qty</dt><dd>{{product.Quantity}}</dd></dl>
+                    x
+                    <dl><dt>Year</dt><dd>{{product.Bike.Model.Year}}</dd></dl>
+                </div>
+
+                <div class="col-xs-12 col-md-3">
+                    <dl><dt>Brand</dt><dd>{{product.Bike.Brand.Name}}</dd></dl>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <dl><dt>Model</dt><dd>{{product.Bike.Model.Name}}</dd></dl>
+                    =
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <dl><dt>Cost of Line</dt><dd>{{product.CostForLine}}</dd></dl>
+                </div>
+            </li>
+        </ul>
+        <div class="col-xs-12 text-right ">
+            <div class="totals">
+                <strong>Totals</strong>
+                {{ReceiptData.SubtotalString}}
+                <br />
+                {{ReceiptData.TaxString}}
+                <br />
+                {{ReceiptData.TotalString}}
+            </div>
+
+        </div>
+    </section>
+</div>

@@ -22,14 +22,5 @@ namespace BikeStoreApi.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:46454/")]
-        public string BIKEWEBURI {
-            get {
-                return ((string)(this["BIKEWEBURI"]));
-            }
-        }
     }
 }

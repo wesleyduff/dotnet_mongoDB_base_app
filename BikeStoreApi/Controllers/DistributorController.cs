@@ -1,17 +1,7 @@
 ﻿using System.Web.Http;
-using System.Collections.Generic;
 using BikeStoreApi.Interfaces;
-using BikeStoreApi.Models;
 using System.Threading.Tasks;
 using Domain;
-using Ninject.Modules;
-using System;
-using BikeStoreApi.Composers;
-using MongoDB.Bson;
-using Newtonsoft.Json;
-using System.Web.Http.Results;
-using System.Web.Http.Cors;
-using Platform.Client.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace BikeStoreApi.Controllers
@@ -46,7 +36,7 @@ namespace BikeStoreApi.Controllers
         {
             return _composer.Get(id);
         }
-
+        
         public async Task<JObject> Delete(string distributorsId)
         {
             return await _composer.Delete(distributorsId);
@@ -59,7 +49,19 @@ namespace BikeStoreApi.Controllers
             return await _composer.UpdateRecieptTypes(postUpdate);
         }
 
+        [Route("api/Distributor/UpdateRecieptList")]
+        [HttpPost]
+        public async Task<JObject> UpdateRecieptList(string distributorId, UdateReceiptList postUpdate)
+        {
+            return await _composer.UpdateRecieptList(distributorId, postUpdate);
+        }
 
+        [Route("api/ReceiptTypes")]
+        [HttpGet]
+        public JObject GetReceiptTypes()
+        {
+            return _composer.GetReceiptTypes();
+        }
 
         #endregion
     }

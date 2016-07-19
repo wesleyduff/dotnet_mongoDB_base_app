@@ -1,0 +1,41 @@
+﻿<table class="table-bordered">
+    <thead>
+        <th>
+            {{ReceiptData.title}}
+        </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                {{ReceiptData.Company}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ReceiptData.TotalItems}} Items : {{ReceiptData.TotalString}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <li ng-repeat="product in ReceiptData.Inventory">
+                        <dl><dt>Qty</dt><dd>{{product.Quantity}}</dd></dl>
+                        x
+                        <dl><dt>Year</dt><dd>{{product.Bike.Model.Year}}</dd></dl>
+                        <dl><dt>Brand</dt><dd>{{product.Bike.Brand.Name}}</dd></dl>
+                        <dl><dt>Model</dt><dd>{{product.Bike.Model.Name}}</dd></dl>
+                        =
+                        <dl><dt>Cost of Line</dt><dd>{{product.CostForLine}}</dd></dl>
+                    </li>
+                </ul>
+                <hr/>
+                {{ReceiptData.SubtotalString}}
+                <br />
+                {{ReceiptData.TaxString}}
+                <br />
+                {{ReceiptData.TotalString}}
+            </td>
+        </tr>
+    </tbody>
+    
+</table>

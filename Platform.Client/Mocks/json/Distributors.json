@@ -56,7 +56,7 @@
         }
       ],
       "Offers": null,
-      "ReceiptTpesOffered": null
+      "ReceiptTypesOffered": null
     },
     {
       "Id": "5788938478199030d82cfc98",
@@ -113,7 +113,7 @@
         }
       ],
       "Offers": null,
-      "ReceiptTpesOffered": [
+      "ReceiptTypesOffered": [
         {
           "RtypeAsString": "FullHtml",
           "RType": 1

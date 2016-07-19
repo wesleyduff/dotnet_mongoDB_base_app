@@ -14,10 +14,39 @@ namespace Platform.Client.Services
 {
     public class OfferServiceClient : BaseModel, IOfferServiceClient
     {
-        public async Task<JObject> AddOfferToDistributor(string distributorId, Offers offer)
+        public async Task<JObject> AddOfferToDistributor(string distributorId, string offerId)
         {
             try
             {
+
+                Offers offer = GetOfferById(offerId);
+                //get distributor
+                Distributor distributor = GetDistributorById(distributorId);
+                var found = false;
+                //check to see if the offer is already in the list of offers under the distributor
+                distributor.Offers.ForEach(delegate (Offers Loffer)
+                {
+                    if (Loffer.Id == offer.Id)
+                    {
+                        found = true;
+                    }
+                });
+
+                if (found)
+                {
+                    return JObject.FromObject(
+                               new
+                               {
+                                   status = "success",
+                                   result = true,
+                                   message = "Offer has alredy been added"
+                               }
+                           );
+                }
+
+              
+
+
                 var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
                 var update = Builders<Distributor>.Update.Push("Offers", offer);
 
@@ -63,6 +92,94 @@ namespace Platform.Client.Services
                );
             }
 
+        }
+        
+        public async Task<JObject> RemoveOfferFromDistributor(string distributorId, string offerId)
+        {
+            try
+            {
+
+                Offers offer = GetOfferById(offerId);
+                //get distributor
+                Distributor distributor = GetDistributorById(distributorId);
+                List<Offers> offersList = distributor.Offers;
+                var found = false;
+                //check to see if the offer is already in the list of offers under the distributor
+                offersList.ForEach(delegate (Offers Loffer)
+                {
+                    if (Loffer.Id == offer.Id)
+                    {
+                        found = true;
+                    }
+                });
+                
+
+                if (found)
+                {
+                    offersList.Remove(offer);
+                    var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
+                    //Remove not push
+                    var update = Builders<Distributor>.Update.Set("Offers", offersList);
+
+
+                    //add offer to distributor 
+                    UpdateResult result = await DistributorsCollection.UpdateOneAsync(filter, update);
+
+                    if (result.IsModifiedCountAvailable)
+                    {
+                        return
+                           JObject.FromObject(
+                               new
+                               {
+                                   status = "success",
+                                   result = true,
+                                   message = "Offer removed to distributor"
+                               }
+                           );
+                    }
+                    else
+                    {
+                        return
+                            JObject.FromObject(
+                                new
+                                {
+                                    status = "false",
+                                    result = false,
+                                    message = "Offer could not be removed to distributor"
+                                }
+                            );
+                    }
+                }
+                else
+                {
+                    return
+                           JObject.FromObject(
+                               new
+                               {
+                                   status = "false",
+                                   result = false,
+                                   message = "Offer could not be found on Distributor"
+                               }
+                           );
+                }
+
+
+
+
+               
+            }
+            catch (Exception ex)
+            {
+                return
+                   JObject.FromObject(
+                   new
+                   {
+                       status = "Exception Thrown",
+                       result = false,
+                       message = ex.Message
+                   }
+               );
+            }
         }
 
         public async Task<JObject> CreateOffer(Offers offer)
@@ -387,6 +504,5 @@ namespace Platform.Client.Services
             return query.First();
         }
 
-      
     }
 }
