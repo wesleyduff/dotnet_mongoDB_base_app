@@ -7,7 +7,6 @@
             <li ng-repeat="product in ReceiptData.Inventory" class="row separate">
                 <div class="col-xs-12 col-md-3">
                     <dl><dt>Qty</dt><dd>{{product.Quantity}}</dd></dl>
-                    x
                     <dl><dt>Year</dt><dd>{{product.Bike.Model.Year}}</dd></dl>
                 </div>
                
@@ -16,7 +15,6 @@
                     </div>
                 <div class="col-xs-12 col-md-3">
                     <dl><dt>Model</dt><dd>{{product.Bike.Model.Name}}</dd></dl>
-                    =
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <dl><dt>Cost of Line</dt><dd>{{product.CostForLine}}</dd></dl>

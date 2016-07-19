@@ -26,6 +26,7 @@
             $distributorsFactory.getReceiptTypes().then(function (response) {
                 if (response.status === "success") {
                     receiptTypes = response.result;
+                    $scope.receiptTypes = receiptTypes;
                 }
             });
 
@@ -63,7 +64,7 @@
                 if (response.status === "success") {
                     $scope.distributorsModalData = response.result;
                     $scope.receiptTypesOffered = {
-                        availableOptions: response.result.ReceiptTypesOffered,
+                        availableOptions: receiptTypes,
                         selectedOptions: response.result.ReceiptTypesOffered
                     }
                     $scope.receiptTypesOfferedSingle = {

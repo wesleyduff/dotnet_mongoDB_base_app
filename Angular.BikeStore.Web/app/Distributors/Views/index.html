@@ -56,7 +56,7 @@
                         <td class="actions">
                             <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteDistributor(distributor.Id)"></button>
                             <button class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="GetDistributor(distributor.Id)" data-toggle="modal" data-target="#distributorsModal"></button>
-                            <button class="btn btn-primary glyphicon glyphicon-th-list" ng-click="GetDistributor(distributor.Id)" data-toggle="modal" data-target="#distributorsReceiptModal"></button>
+                            <button class="btn btn-primary glyphicon glyphicon-th-list" ng-disabled="distributor.ReceiptTypesOffered.length < 1" ng-click="GetDistributor(distributor.Id)" data-toggle="modal" data-target="#distributorsReceiptModal"></button>
                         </td>
                     </tr>
                 </tbody>
@@ -152,7 +152,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="RemoveOfferFromDistributor(distributorsModalData.Id, offer.Id)"></button>
+                                            <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="RemoveOfferFromDistributor(distributorsModalData.Id, offer.Id)" onclick="$('#distributorsModal').modal('hide');"></button>
                                         </td>
                                     </tr>
                                 </tbody>

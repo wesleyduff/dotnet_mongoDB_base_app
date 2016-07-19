@@ -85,7 +85,7 @@ namespace BikeStoreApi.App_Start
 
             kernel.Bind<IDiscountComposer>().To<DiscountComposer>();
             kernel.Bind<IDistributorComposer>().To<DistributorsComposer>();
-
+            kernel.Bind<IOffersComposer>().To<OffersComposer>();
 
         }        
     }

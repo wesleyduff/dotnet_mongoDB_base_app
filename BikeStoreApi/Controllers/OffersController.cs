@@ -9,7 +9,6 @@ namespace BikeStoreApi.Controllers
 {
     public class OffersController : ApiController
     {
-        private readonly IOfferServiceClient _offerServiceClient;
         private readonly IOffersComposer _offerComposer;
      
         public OffersController(IOffersComposer offerComposer)
@@ -75,7 +74,7 @@ namespace BikeStoreApi.Controllers
 
         [Route("api/Distributor/{distributorId}/RemoveOffer/{offerId}")]
         [HttpGet]
-        public async Task<JObject> RemoveOfferToDistributor(string distributorId, string offerId)
+        public async Task<JObject> RemoveOfferFromDistributor(string distributorId, string offerId)
         {
             return await _offerComposer.RemoveOfferFromDistributor(distributorId, offerId);
         }

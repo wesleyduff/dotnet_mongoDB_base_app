@@ -105,18 +105,17 @@ namespace Platform.Client.Services
                 List<Offers> offersList = distributor.Offers;
                 var found = false;
                 //check to see if the offer is already in the list of offers under the distributor
-                offersList.ForEach(delegate (Offers Loffer)
+                foreach (var loffer in offersList.Where(loffer => loffer.Id == offerId))
                 {
-                    if (Loffer.Id == offer.Id)
-                    {
-                        found = true;
-                    }
-                });
+                    found = true;
+                    offersList.Remove(loffer);
+                    break;
+                }
+               
                 
 
                 if (found)
                 {
-                    offersList.Remove(offer);
                     var filter = Builders<Distributor>.Filter.Eq("_id", ObjectId.Parse(distributorId));
                     //Remove not push
                     var update = Builders<Distributor>.Update.Set("Offers", offersList);
