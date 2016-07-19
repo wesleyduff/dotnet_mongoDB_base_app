@@ -197,3 +197,23 @@ td.actions button {
         box-shadow:#d4d4d4 68px 10px inset;
         border-top-left-radius:20px;
     }
+
+.links {
+    background-color: white;
+    border-radius: 16px;
+    padding: 15px;
+    width:30%;
+    opacity:.8;
+}
+.links:hover {
+    opacity:1;
+}
+    .links img {
+        height: 50px;
+    }
+    .links a:not(:last-child) img {
+        margin-right: 38px;
+    }
+    .links a:first-child{
+        margin-left:10px;
+    }

@@ -104,12 +104,18 @@
     <Content Include="app\Distributors\Views\FullHtml.html" />
     <Content Include="app\Distributors\Views\SummaryHtml.html" />
     <Content Include="app\Offers\bundle\offers-services.js" />
+    <Content Include="Content\images\facebook.png" />
+    <Content Include="Content\images\github.png" />
+    <Content Include="Content\images\linkedIn.png" />
+    <Content Include="Content\images\repository.png" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\angular-resource.min.js.map" />
+    <None Include="Properties\PublishProfiles\TrainerRoadApplication.pubxml" />
+    <None Include="Properties\PublishProfiles\TrainerRoadApply.pubxml" />
     <None Include="Properties\PublishProfiles\TrainerRoadDemo.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

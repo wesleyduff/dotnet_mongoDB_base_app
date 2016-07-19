@@ -322,6 +322,10 @@
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
     <None Include="Properties\PublishProfiles\BikeStoreApi%28TrainerRoad%29.pubxml" />
+    <None Include="Properties\PublishProfiles\BikeStoreTrainerRoadApplication.pubxml" />
+    <None Include="Properties\PublishProfiles\TrainerRoadApplication.pubxml" />
+    <None Include="Properties\PublishProfiles\TrainerRoadApplyApi.pubxml" />
+    <None Include="Properties\PublishProfiles\TrainerRoadServerApi%28TrainerRoadResourceGroup%29.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

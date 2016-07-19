@@ -13,7 +13,7 @@ namespace BikeStoreApi
     {
         public static void Register(HttpConfiguration config)
         {
-            var cors = new EnableCorsAttribute("http://trainerroaddemo.azurewebsites.net,http://www.trainerroaddemo.azurewebsites.net,www.trainerroaddemo.azurewebsites.net,trainerroaddemo.azurewebsites.net", "*", "*");
+            var cors = new EnableCorsAttribute("http://trainerroadapply.azurewebsites.net", "*", "*");
             config.EnableCors(cors);
             //var corsAttr = new EnableCorsAttribute("trainerroaddemo.azurewebsites.net/", "*", "GET,PUT,POST,DELETE");
             //  config.EnableCors(new EnableCorsAttribute("*", " * ", "*", "*"));
