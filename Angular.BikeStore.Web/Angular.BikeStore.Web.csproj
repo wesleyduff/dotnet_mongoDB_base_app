@@ -108,6 +108,7 @@
     <Content Include="Content\images\github.png" />
     <Content Include="Content\images\linkedIn.png" />
     <Content Include="Content\images\repository.png" />
+    <Content Include="Content\images\stackOverflow.jpg" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
