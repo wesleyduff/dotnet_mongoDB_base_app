@@ -13,8 +13,11 @@ namespace BikeStoreApi
     {
         public static void Register(HttpConfiguration config)
         {
-            var corsAttr = new EnableCorsAttribute("http://localhost:46454", "*", "GET,PUT,POST,DELETE");
-            config.EnableCors(corsAttr);
+            var cors = new EnableCorsAttribute("http://trainerroaddemo.azurewebsites.net,http://www.trainerroaddemo.azurewebsites.net,www.trainerroaddemo.azurewebsites.net,trainerroaddemo.azurewebsites.net", "*", "*");
+            config.EnableCors(cors);
+            //var corsAttr = new EnableCorsAttribute("trainerroaddemo.azurewebsites.net/", "*", "GET,PUT,POST,DELETE");
+            //  config.EnableCors(new EnableCorsAttribute("*", " * ", "*", "*"));
+            //  config.EnableCors(corsAttr);
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();

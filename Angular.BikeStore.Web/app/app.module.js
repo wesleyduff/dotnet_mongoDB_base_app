@@ -4,10 +4,15 @@
 
     angular.module('app', ['ui.router', 'oc.lazyLoad', 'ngResource'])
     .constant('APPSETTINGS', {
-        APISERVERPATH: 'http://localhost:26639'
+        APISERVERPATH: 'https://microsoft-apiapp941985cc71464efb983e0c4c7befe54d.azurewebsites.net'
     })
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $httpProvider) {
-     
+        $httpProvider.defaults.withCredentials = true;
+                 
+        $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.headers.common["X-Requested-With"];
+       // $httpProvider.defaults.headers.common["Accept"] = "application/json";
+        //$httpProvider.defaults.headers.common["Content-Type"] = "application/json"       
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/Home");
         // Now set up the states
