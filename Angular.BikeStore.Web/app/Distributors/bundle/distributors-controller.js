@@ -3,12 +3,14 @@
 
     angular.module('app')
 
-    .controller('DistributorsCtrl', ['$scope', '$state', '$distributorsFactory', function ($scope, $state, $distributorsFactory) {
+    .controller('DistributorsCtrl', ['$rootScope', '$scope', '$state', '$distributorsFactory', function ($rootScope, $scope, $state, $distributorsFactory) {
         $scope.disableActionButton = false;
         $scope.title = "Distributors";
         $scope.distributors = [];
         $scope.selectedDistributor = {};
         $scope.showPriceEdit = false;
+        
+        $rootScope.showLoader = true;
         
         var receiptTypes = [];
         //Initialize
@@ -16,7 +18,9 @@
             $distributorsFactory.get().then(function (response) {
                 if (response.status === "success") {
                     $scope.distributors = response.result;
+                    
                 }
+                $rootScope.showLoader = false;
             });
 
             $('#distributorsReceiptModal').on('shown.bs.modal', function () {
@@ -32,7 +36,6 @@
         })();
 
         $scope.updateUIViewVisibility = function (state) {
-            
             if (!state) {
                 $scope.disableActionButton = false;
             } else {
@@ -41,6 +44,7 @@
         }
 
         $scope.updateReceiptList = function (selectedValue) {
+            $rootScope.showLoader = true;
             var postData = {
                 distributorId: $scope.distributorsModalData.Id,
                 ReceiptList : selectedValue
@@ -50,6 +54,7 @@
                     $scope.receiptTypesOffered.selectedOptions = response.result;
                     hardUpdateDistributorsCollection();
                 }
+                $rootScope.showLoader = false;
             });
         }
 
@@ -58,6 +63,7 @@
             $state.go(stateHook);
         }
         $scope.GetDistributor = function (distributorId) {
+            $rootScope.showLoader = true;
             $distributorsFactory.getDistributor(distributorId).then(function (response) {
                 if (response.status === "success") {
                     $scope.distributorsModalData = response.result;
@@ -72,10 +78,12 @@
                         selectedOption: response.result.ReceiptTypesOffered[0]
                     }
                 }
+                $rootScope.showLoader = false;
             });
         }
 
         $scope.UpdatePrice = function (distributorId, bikeId, newPrice) {
+            $rootScope.showLoader = true;
             var postData = {
                 distributorId: distributorId,
                 BikeId: bikeId,
@@ -84,47 +92,57 @@
                 }
             };
             $distributorsFactory.adjustPrice(postData).then(function (response) {
+                $rootScope.showLoader = true;
                 if (response.status === "success") {
                     $scope.distributorsModalData.Inventory = response.result;
                 }
+                $rootScope.showLoader = false;
             });
         }
 
 
         $scope.createDistributor = function (postData) {
+            $rootScope.showLoader = true;
             $distributorsFactory.create(postData).then(function (response) {
                 if (response.status === "success") {
                     $scope.disableActionButton = false;
                     $scope.distributors.push(response.result);
                 }
+                $rootScope.showLoader = false;
             })
         }
 
         $scope.deleteDistributor = function (distributorId) {
+            $rootScope.showLoader = true;
             $distributorsFactory.deleteDistributor(distributorId).then(function (response) {
                 if (response.status === "success") {
                     $scope.distributors.pop(response.result);
                 }
+                $rootScope.showLoader = false;
             });
         }
 
 
        
         $scope.RemoveOfferFromDistributor = function (distributorId, offerId) {
+            $rootScope.showLoader = true;
             $distributorsFactory.RemoveOfferFromDistributor(distributorId, offerId).then(function (response) {
                 if (response.status === "success") {
                     $scope.updateUIViewVisibility(false);
                     //we do not have the full distributor on the response, a hard refresh of data from the API is needed
                     hardUpdateDistributorsCollection();
                 }
+                $rootScope.showLoader = false;
             });
         }
 
         $scope.deleteProductFromInventory = function (distributorId, bikeId) {
+            $rootScope.showLoader = true;
             $distributorsFactory.deleteProductFromInventory(distributorId, bikeId).then(function (response) {
                 if (response.status === "success") {
                     hardUpdateDistributorsCollection();
                 }
+                $rootScope.showLoader = false;
             })
         }
 

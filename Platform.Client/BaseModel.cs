@@ -10,13 +10,12 @@ namespace Platform.Client
         private readonly MongoClient mognoClient;
         public BaseModel()
         {
-            if(mognoClient == null)
+            if (mognoClient == null)
             {
-                /* Local
+                /* Local 
                 var client = new MongoClient(Settings.Default.mongoLocal);
                 Database = client.GetDatabase(Settings.Default.mongoLocalDb);
                 */
-
                 /* Test 
                 mognoClient = new MongoClient(Settings.Default.mongoLocal);
                 Database = mognoClient.GetDatabase(Settings.Default.mongoLocalTestDb);

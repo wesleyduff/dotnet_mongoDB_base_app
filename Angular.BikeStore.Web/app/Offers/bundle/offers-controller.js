@@ -3,11 +3,12 @@
 
     angular.module('app')
 
-    .controller('OffersCtrl', ['$scope', '$offersFactory', '$discountsFactory', function ($scope, $offersFactory, $discountsFactory) {
+    .controller('OffersCtrl', ['$rootScope', '$scope', '$offersFactory', '$discountsFactory', function ($rootScope, $scope, $offersFactory, $discountsFactory) {
         $scope.title = "Offers";
-
+        $rootScope.showLoader = true;
         //load discounts for drop down
         (function (discount) {
+            var isLoaded = [];
             $discountsFactory.getDiscounts().then(function (response) {
                 if (response.status == "success") {
                     $scope.discountOptions = {
@@ -15,6 +16,7 @@
                         selectedOptions: [response.result[0]]
                     }
                 }
+                $rootScope.showLoader = false;
             });
 
             $offersFactory.get().then(function (response) {
@@ -23,9 +25,12 @@
                 }
             });
 
+            
+
         })();
 
-        $scope.AddOfferToDistributor = function(distributorId, offerId){
+        $scope.AddOfferToDistributor = function (distributorId, offerId) {
+            $rootScope.showLoader = true;
             $offersFactory.addOfferToDistributor(distributorId, offerId).then(function (response) {
                 if (response.status === "success") {
                     //from parent controller - distributors controller
@@ -33,22 +38,27 @@
                     //Call private method on Distributor controller - through events
                     $scope.$emit('updateDistributors');
                 }
+                $rootScope.showLoader = false;
             });
         }
 
         $scope.AddOffer = function (postOffer) {
+            $rootScope.showLoader = true;
             $offersFactory.create(postOffer).then(function (response) {
                 if (response.status === "success") {
                     updateOffersCollection(response.result);
                 }
+                $rootScope.showLoader = false;
             });
         }
 
         $scope.DeleteOffer = function (offerId) {
+            $rootScope.showLoader = true;
             $offersFactory.delete(offerId).then(function (response) {
                 if (response.status === "success") {
                     updateOffersCollection(offerId);
                 }
+                $rootScope.showLoader = false;
             })
         }
 

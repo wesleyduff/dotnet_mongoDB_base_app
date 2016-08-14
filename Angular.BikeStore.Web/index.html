@@ -9,13 +9,14 @@
     <script type="text/javascript" src="Scripts/ocLazyLoad.min.js"></script>
     <script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Scripts/angular-spinners.min.js"></script>
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <link rel="stylesheet" href="Content/bootstrap-theme.css" />
     <link rel="stylesheet" href="Content/styles.css" />
     
  </head>
-<body>
-    
+<body ng-controller="MainController">
+   
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -38,7 +39,7 @@
         </div>
     </div>
     <div class="container body-content">
-
+        <loader name="mySpinner" show="showLoader"></loader>
 
         <div ui-view="lazyLoadView"></div>
        
@@ -48,9 +49,12 @@
         </footer>
     </div>
 
+    <div class="modal-backdrop fade in" ng-if="showLoader"></div>
+
 
 
     <script type="text/javascript" src="app/main.js"></script>
     <script type="text/javascript" src="app/app.module.js"></script>
+    
 </body>
 </html>

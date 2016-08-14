@@ -112,9 +112,11 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-spinners.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\TrainerRoadApplication.pubxml" />
     <None Include="Properties\PublishProfiles\TrainerRoadApply.pubxml" />
     <None Include="Properties\PublishProfiles\TrainerRoadDemo.pubxml" />
