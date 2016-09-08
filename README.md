@@ -12,7 +12,7 @@ Bike Dealer Feature, WebAPI, Ninject, C#, Angular SPA application.
    <hr/>
    <section>
    <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/Home.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/Home.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/Home.PNG" height="100" alt="dist" />
     </a>
      <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist.PNG" target="_blank">
       <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist.PNG" height="100" alt="dist" />
@@ -21,26 +21,26 @@ Bike Dealer Feature, WebAPI, Ninject, C#, Angular SPA application.
       <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-2.PNG" height="100" alt="dist" />
     </a>
         <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add.PNG" height="100" alt="dist" />
     </a> 
     </a>
     <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-read.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-read.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-read.PNG" height="100" alt="dist" />
     </a>
     <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add-offer.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add-offer.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-add-offer.PNG" height="100" alt="dist" />
     </a>
      <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-rec.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-rec.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-rec.PNG" height="100" alt="dist" />
     </a>
     <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-update-price.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-update-price.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/dist-update-price.PNG" height="100" alt="dist" />
     </a>
     <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.PNG" height="100" alt="dist" />
     </a>
     <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/discounts.PNG" height="100" alt="dist" />
     </a>
     
      <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offers.PNG" target="_blank">
