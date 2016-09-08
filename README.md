@@ -1,5 +1,6 @@
 # BikeDealerFeatureTrainerRoad
-Bike Dealer Feature, WebAPI, Ninject, C#, Angular SPA application.
+Assesstment of skill 
+Code reusable for other applications ( a good base to launch from to create more complex applications)
 
 
 <div style="border-top:1px solid #AAA; border-bottom:1px solid #AAA">
@@ -51,3 +52,22 @@ Bike Dealer Feature, WebAPI, Ninject, C#, Angular SPA application.
     </a>
    </section>
 </div>
+
+# ASP.NET MVC 5 Application | AngluarJS | Bootstrap | MongoDB (C# Driver)
+
+Application manages bikd distributors inventory | discounts & Offers
+
+## Back-end
+* MongoDB | Using the C# driver
+* Composers | Directors | Builders | Services - design pattern
+* C# Generics | Interfaces 
+* Razor View syntax
+* WebAPI
+* Ninject
+
+## Front-end
+* AngularJS 1.5.x
+* Bootsrap
+* FontAwesome
+
+
