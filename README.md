@@ -6,7 +6,7 @@ Code reusable for other applications ( a good base to launch from to create more
 
 <div style="border-top:1px solid #AAA; border-bottom:1px solid #AAA">
    <section style="display:block;">
-     <a href="http://recordit.co/XjWHjhSiAu" target="_blank">
+     <a href="http://recordit.co/CvzVcrnRJV" target="_blank">
       <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/video.PNG" height="300" alt="Video" />
     </a>
    </section>
