@@ -44,10 +44,10 @@ Bike Dealer Feature, WebAPI, Ninject, C#, Angular SPA application.
     </a>
     
      <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offers.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offers.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offers.PNG" height="100" alt="dist" />
     </a>
      <a href="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offer-new.PNG" target="_blank">
-      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offer-new.png" height="100" alt="dist" />
+      <img src="https://raw.githubusercontent.com/wesleyduff/BikeDealerFeatureTrainerRoad/master/offer-new.PNG" height="100" alt="dist" />
     </a>
    </section>
 </div>
