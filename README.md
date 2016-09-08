@@ -56,7 +56,7 @@ Code reusable for other applications ( a good base to launch from to create more
 
 # ASP.NET MVC 5 Application | AngluarJS | Bootstrap | MongoDB (C# Driver)
 
-Application manages bikd distributors inventory | discounts & Offers
+Application manages bike ~  distributors inventory | discounts & Offers
 
 ## Back-end
 * MongoDB | Using the C# driver
