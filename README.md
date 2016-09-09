@@ -1,7 +1,6 @@
-# BikeDealerFeatureTrainerRoad
-Assesstment of skill 
+# .Net / WebAPI / MVC 5 / AngularJS / Bootstrap / MongoDB (c# driver) Base Application
 
-Code reusable for other applications ( a good base to launch from to create more complex applications)
+Could be used as a base application for any further development on larger projects
 
 
 <div style="border-top:1px solid #AAA; border-bottom:1px solid #AAA">
